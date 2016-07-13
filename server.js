@@ -2,6 +2,8 @@ if (!process.env.PORT) {
   process.env.PORT = 8080;
 }
 
+var steviloTaskov = 7;
+
 //set up server
 var express =require('express');
 var app = express();
@@ -41,10 +43,19 @@ app.post('/prijavi', function(zahteva, odgovor) {
     })
 });
 
+app.post('/odjavi', function(zahteva, odgovor) {
+  delete zahteva.session.email;
+  delete zahteva.session.geslo;
+  zahteva.session.sporociloZaIzpisNaStrani = "Uspešno ste se izpisali iz strani";
+  odgovor.redirect('/');
+});
+
+
 app.get('/tasks', function(zahteva, odgovor) {
   pb.all("SELECT * FROM naloge", function(napaka1, vrstice1){
     pb.all("SELECT * FROM usluzbenci WHERE email = '" +zahteva.session.email + "' AND geslo = '"+zahteva.session.geslo+"'", function(napaka, vrstice){
       if(vrstice.length == 0){
+        zahteva.session.sporociloZaIzpisNaStrani = "Neuspešna prijava, prijavite se še enkrat";
         odgovor.redirect('/index');
       }
       else{
@@ -56,30 +67,48 @@ app.get('/tasks', function(zahteva, odgovor) {
 });
 
 app.get('/', function(zahteva, odgovor) {
-    odgovor.redirect('/index');
+  if(!zahteva.session.sporociloZaIzpisNaStrani){
+    zahteva.session.sporociloZaIzpisNaStrani = '';
+  }
+  odgovor.redirect('/index');
 })
 
 app.get('/index', function(zahteva, odgovor) {
-    odgovor.render('index', {sporocilo: ' '});
+    var izpis = zahteva.session.sporociloZaIzpisNaStrani
+    delete sporociloZaIzpisNaStrani;
+    odgovor.render('index', {sporocilo: izpis});
 })
 
 server.listen(process.env.PORT, function() {
   console.log("Strežnik posluša na portu " + process.env.PORT + ".");
 });
 
-//brodcast to all users
-// io.on('connection', function (socket) {
-//   socket.on('chat message', function (data) {
-//     io.sockets.emit('chat message',data);
-//   });
-// });
 
 io.on('connection', (socket) => {
   console.log('a user connected');
 
-  socket.on('chat message', (data) => {
+  socket.on('kreirajOpravilo',(data,objekt) => {
+    var stmt = "INSERT INTO naloge (usluzbenec_id, ehr_id,imeOpravila, loc_id, done) VALUES (?,?,?,?,?)";
+      pb.run(stmt,[null,objekt.ehr,objekt.opis,objekt.loc,0]); 
+      steviloTaskov = steviloTaskov + 1;
     console.log(data);
-    io.sockets.emit('chat',data);
+    io.sockets.emit('kreiranoOpravilo',data);
+  });
+
+  socket.on('prevzemiOpravilo', (data,id) => {
+    var sql03="UPDATE naloge SET usluzbenec_id = ? WHERE task_id = ?";
+    pb.run(sql03,[null,id]);
+    console.log(id);
+    console.log(data);
+    io.sockets.emit('prevzetoOpravilo',data);
+  });
+
+  socket.on('koncanoOpravilo', (data,id) => {
+    var sql03="UPDATE naloge SET done = ? WHERE task_id = ?";
+    pb.run(sql03,[1,id]);
+    console.log(id);
+    console.log(data);
+    io.sockets.emit('koncajOpravilo',data);
   });
 
   socket.on('disconnect', () => {
