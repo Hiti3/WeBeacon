@@ -60,7 +60,7 @@ app.get('/tasks', function(zahteva, odgovor) {
       }
       else{
         console.log(vrstice1);
-        odgovor.render('front_page', {usluzbenci: vrstice[0],naloge: vrstice1});
+        odgovor.render('tasks', {usluzbenci: vrstice[0],naloge: vrstice1});
       }
     })
   })
@@ -88,11 +88,14 @@ io.on('connection', (socket) => {
   console.log('a user connected');
 
   socket.on('kreirajOpravilo',(data,objekt) => {
-    var stmt = "INSERT INTO naloge (usluzbenec_id, ehr_id,imeOpravila, loc_id, done) VALUES (?,?,?,?,?)";
-      pb.run(stmt,[null,objekt.ehr,objekt.opis,objekt.loc,0]); 
+    var stmt = "INSERT INTO naloge (usluzbenec_id, ehr_id,imeOpravila, loc_id, done,prioriteta) VALUES (?,?,?,?,?,?)";
+      pb.run(stmt,[null,objekt.ehr,objekt.opis,objekt.loc,0,objekt.priority]); 
       steviloTaskov = steviloTaskov + 1;
     console.log(data);
-    io.sockets.emit('kreiranoOpravilo',data);
+    pb.all("SELECT * FROM naloge", function(napaka, vrstice){
+      console.log(vrstice);
+      io.sockets.emit('kreiranoOpravilo',vrstice);
+    });
   });
 
   socket.on('prevzemiOpravilo', (data,id) => {
@@ -100,7 +103,10 @@ io.on('connection', (socket) => {
     pb.run(sql03,[null,id]);
     console.log(id);
     console.log(data);
-    io.sockets.emit('prevzetoOpravilo',data);
+    pb.all("SELECT * FROM naloge", function(napaka, vrstice){
+      console.log(vrstice);
+      io.sockets.emit('prevzetoOpravilo',vrstice);
+    });
   });
 
   socket.on('koncanoOpravilo', (data,id) => {
@@ -108,7 +114,10 @@ io.on('connection', (socket) => {
     pb.run(sql03,[1,id]);
     console.log(id);
     console.log(data);
-    io.sockets.emit('koncajOpravilo',data);
+    pb.all("SELECT * FROM naloge", function(napaka, vrstice){
+      console.log(vrstice);
+      io.sockets.emit('koncajOpravilo',vrstice);
+    });
   });
 
   socket.on('disconnect', () => {
