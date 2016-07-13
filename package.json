@@ -4,11 +4,15 @@
   "description": "MedRockWeek",
   "dependencies": {
     "express": "latest",
+    "connect": "latest",
+    "socket.io": "latest",
+    "path": "latest",
     "express-session":"latest",
     "sqlite3": "latest",
     "ejs": "latest", 
     "fs":  "latest", 
     "html": "latest",
+    "express.io": "latest",
     "formidable": "latest"
   }
 }
