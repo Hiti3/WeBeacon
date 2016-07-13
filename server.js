@@ -47,7 +47,7 @@ app.get('/tasks', function(zahteva, odgovor) {
       odgovor.redirect('/index');
     }
     else{
-      odgovor.render('tasks', {trenutneStranke: vrstice[0]});
+      odgovor.render('tasks', {usluzbenci: vrstice[0]});
     }
   })
 });

@@ -27,27 +27,9 @@
 </head>
 <body>
 
-<!--<nav class="navbar navbar-default navbar-fixed-top">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="#"><%= trenutneStranke.email %> </a>
-    </div>
-    <div class="collapse navbar-collapse" id="myNavbar">
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="#services">AVAILABLE TASK</a></li>
-        <li><a href="#portfolio">CREATE TASK</a></li>
-        <li><a href="#pricing">IN-PROGRESE TASK</a></li>
-        <li><a href="#contact">SEARCH HISTORY</a></li>
-      </ul>
-    </div>
-  </div>
-</nav> -->
-
+  <p id="usluzbenci">
+    <%=usluzbenci.email%>
+  </p>
 
 <ul id="messages"></ul>
  <form action="">
@@ -67,7 +49,8 @@
      });
   socket.on('chat', function(msg){
    $('#messages').append($('<li>').text(msg));
-   
+   $("#usluzbenci").text(msg);
+
  });
 </script>
  </body>
