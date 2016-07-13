@@ -60,7 +60,7 @@ app.get('/tasks', function(zahteva, odgovor) {
       }
       else{
         console.log(vrstice1);
-        odgovor.render('front_page', {usluzbenci: vrstice[0],naloge: vrstice1});
+        odgovor.render('tasks', {usluzbenci: vrstice[0],naloge: vrstice1});
       }
     })
   })
@@ -88,17 +88,35 @@ io.on('connection', (socket) => {
   console.log('a user connected');
 
   socket.on('kreirajOpravilo',(data,objekt) => {
+<<<<<<< HEAD
     var stmt = "INSERT INTO naloge (usluzbenec_id, ehr_id,imeOpravila, loc_id, done) VALUES (?,?,?,?,?)";
       pb.run(stmt,[null,objekt.ehr,objekt.opis,objekt.loc,0]);
+=======
+    var stmt = "INSERT INTO naloge (usluzbenec_id, ehr_id,imeOpravila, loc_id, done,prioriteta) VALUES (?,?,?,?,?,?)";
+      pb.run(stmt,[null,objekt.ehr,objekt.opis,objekt.loc,0,objekt.priority]); 
+>>>>>>> database
       steviloTaskov = steviloTaskov + 1;
     console.log(data);
-    io.sockets.emit('kreiranoOpravilo',data);
+    pb.all("SELECT * FROM naloge", function(napaka, vrstice){
+      console.log(vrstice);
+      io.sockets.emit('kreiranoOpravilo',vrstice);
+    });
   });
 
   socket.on('prevzemiOpravilo', (data,id) => {
     var sql03="UPDATE naloge SET usluzbenec_id = ? WHERE task_id = ?";
+<<<<<<< HEAD
     pb.run(sql03,[data,id]);
     io.sockets.emit('prevzetoOpravilo',data);
+=======
+    pb.run(sql03,[null,id]);
+    console.log(id);
+    console.log(data);
+    pb.all("SELECT * FROM naloge", function(napaka, vrstice){
+      console.log(vrstice);
+      io.sockets.emit('prevzetoOpravilo',vrstice);
+    });
+>>>>>>> database
   });
 
   socket.on('sprostiOpravilo', (id) => {
@@ -111,7 +129,15 @@ io.on('connection', (socket) => {
     var sql03="UPDATE naloge SET done = ? WHERE task_id = ?";
     pb.run(sql03,[1,id]);
     console.log(id);
+<<<<<<< HEAD
     io.sockets.emit('koncajOpravilo');
+=======
+    console.log(data);
+    pb.all("SELECT * FROM naloge", function(napaka, vrstice){
+      console.log(vrstice);
+      io.sockets.emit('koncajOpravilo',vrstice);
+    });
+>>>>>>> database
   });
 
   socket.on('disconnect', () => {

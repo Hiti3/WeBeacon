@@ -28,7 +28,7 @@
 <body>
 
   <p id="usluzbenci">
-    <%=naloge[3].task_id%>
+    <%=usluzbenci.email%>
   </p>
 
 <ul id="messages"></ul>
@@ -44,16 +44,17 @@
      $('form').submit(function(){
        console.log("<%=usluzbenci.id%>");
        console.log($('#m').val());
-       var objekt ={ehr: "1", opis:"Lepa Brena", loc:"0"}
+       var objekt ={ehr: "1", opis:"Lepa Brena", loc:"0", priority:"1"}
        socket.emit('kreirajOpravilo', $('#m').val(),objekt);
        $('#m').val('');
        return false;
      });
   socket.on('kreiranoOpravilo', function(msg){
+    console.log(msg);
    $('#messages').append($('<li>').text(msg));
    $("#usluzbenci").text(msg);
 
  });
-</script>
+</script> 
  </body>
 </html>
