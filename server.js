@@ -68,6 +68,7 @@ app.get('/', function(zahteva, odgovor) {
   if(!zahteva.session.sporociloZaIzpisNaStrani){
     zahteva.session.sporociloZaIzpisNaStrani = '';
   }
+
   odgovor.redirect('/index');
 })
 
@@ -88,7 +89,7 @@ io.on('connection', (socket) => {
   socket.on('kreirajOpravilo',(data,objekt) => {
     var stmt = "INSERT INTO naloge (usluzbenec_id, ehr_id,imeOpravila, loc_id, done,prioriteta) VALUES (?,?,?,?,?,?)";
       pb.run(stmt,[null,objekt.ehr,objekt.opis,objekt.loc,0,objekt.priority]);
-    console.log(data);
+    console.log(data +"lalala");
     pb.all("SELECT * FROM naloge", function(napaka, vrstice){
       io.sockets.emit('opravila',vrstice);
     });
