@@ -5,10 +5,10 @@ $('form').submit(function(){
   $('#m').val('');
   return false;
 });
-socket.on('kreiranoOpravilo', function(msg){
-  $('#messages').append($('<li>').text(msg));
-  $("#usluzbenci").text(msg);
-});
+// socket.on('kreiranoOpravilo', function(msg){
+//   $('#messages').append($('<li>').text(msg));
+//   $("#usluzbenci").text(msg);
+// });
 $('.todoItem').click(function() {
   var todoID = $(this).attr("id").replace("todo", "");
   var usluzbenec_id = $("#usluzbenec").text();
@@ -24,3 +24,7 @@ $('.doneItem').click(function() {
   var doneID = $(this).attr("id").replace("done", "");
   socket.emit('koncanoOpravilo', doneID);
 })
+
+socket.on('opravila', function(opravila) {
+  console.log(opravila);
+});

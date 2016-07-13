@@ -58,7 +58,7 @@ app.get('/tasks', function(zahteva, odgovor) {
       }
       else{
         console.log(vrstice1);
-        odgovor.render('tasks', {usluzbenci: vrstice[0],naloge: vrstice1});
+        odgovor.render('front_page', {usluzbenci: vrstice[0],naloge: vrstice1});
       }
     })
   })
@@ -90,7 +90,7 @@ io.on('connection', (socket) => {
       pb.run(stmt,[null,objekt.ehr,objekt.opis,objekt.loc,0,objekt.priority]);
     console.log(data);
     pb.all("SELECT * FROM naloge", function(napaka, vrstice){
-      io.sockets.emit('kreiranoOpravilo',vrstice);
+      io.sockets.emit('opravila',vrstice);
     });
   });
 
@@ -99,14 +99,17 @@ io.on('connection', (socket) => {
     pb.run(sql03,[data,id]);
     pb.all("SELECT * FROM naloge", function(napaka, vrstice){
       console.log(vrstice);
-      io.sockets.emit('prevzetoOpravilo',vrstice);
+      io.sockets.emit('opravila',vrstice);
     });
   });
 
   socket.on('sprostiOpravilo', (id) => {
     var sql03="UPDATE naloge SET usluzbenec_id = ? WHERE task_id = ?";
     pb.run(sql03,[null,id]);
-    io.sockets.emit('sproscenoOpravilo');
+    pb.all("SELECT * FROM naloge", function(napaka, vrstice){
+      console.log(vrstice);
+      io.sockets.emit('opravila', vrstice);
+    });
   });
 
   socket.on('koncanoOpravilo', (id) => {
@@ -114,7 +117,7 @@ io.on('connection', (socket) => {
     pb.run(sql03,[1,id]);
     pb.all("SELECT * FROM naloge", function(napaka, vrstice){
       console.log(vrstice);
-      io.sockets.emit('koncajOpravilo',vrstice);
+      io.sockets.emit('opravila',vrstice);
     });
   });
 
