@@ -35,7 +35,7 @@ var path = require('path');
 //prikazi index.html
 streznik.get('/', function(zahteva, odgovor) {
     console.log("ping..");
-    odgovor.sendFile(path.join(__dirname, "views/index.html"));
+    odgovor.sendFile(path.join(__dirname, "views/front_page.html"));
 })
 
 streznik.listen(process.env.PORT, function() {
