@@ -22,11 +22,11 @@ app.set('view engine', 'ejs');
 app.use(express.static('public'));
 app.use(
   expressSession({
-    secret: '1234567890QWERTY', 
-    saveUninitialized: true,    
-    resave: false,              
+    secret: '1234567890QWERTY',
+    saveUninitialized: true,
+    resave: false,
     cookie: {
-    maxAge: 3600000       
+    maxAge: 3600000
     }
   })
 );
@@ -65,11 +65,22 @@ server.listen(process.env.PORT, function() {
 });
 
 //brodcast to all users
-io.on('connection', function (socket) {
-  socket.on('chat message', function (data) {
-    io.sockets.emit('chat message',data);
+// io.on('connection', function (socket) {
+//   socket.on('chat message', function (data) {
+//     io.sockets.emit('chat message',data);
+//   });
+// });
+
+io.on('connection', (socket) => {
+  console.log('a user connected');
+
+  socket.on('chat message', (data, bla) => {
+    console.log(data);
+    console.log(bla);
+    io.sockets.emit('chat',data);
+  });
+
+  socket.on('disconnect', () => {
+    console.log('user disconnected');
   });
 });
-
-
-
