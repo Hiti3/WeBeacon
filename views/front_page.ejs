@@ -9,6 +9,7 @@
 </head>
 
 <body>
+  <p id="usluzbenec" style="display: none"><%=usluzbenci.id%></p>
     <div>
         <div class="tab-content">
           <div id="home" class="tab-pane fade in active">
@@ -27,18 +28,18 @@
                     <button type="button" class="btn btn-default" id="logout"><div class="glyphicon glyphicon-off logo-large" id="logout_glyphon"></div></button></div>
               </div>
             </div>
-            
-           
+
+
               <div class="list-group">
               <% for(var i=0; i<naloge.length; i++) {%>
                 <% if (naloge[i].usluzbenec_id == null) { %>
-                  <a href="#" class="list-group-item"><%= naloge[i].imeOpravila %></a>
+                  <a href="#" class="list-group-item"><%= naloge[i].imeOpravila %><button class="todoItem" id="todo<%=naloge[i].task_id%>">Pick</button></a>
                 <% } %>
               <% } %>
               </div>
-            
+
           </div>
-          
+
           <div id="menu1" class="tab-pane fade">
             <div class="jumbotron text-center">
               <div class="row">
@@ -55,16 +56,20 @@
                     <button type="button" class="btn btn-default" id="logout"><div class="glyphicon glyphicon-off logo-large" id="logout_glyphon"></div></button></div>
               </div>
             </div>
-            
+
            <div class="list-group">
               <% for(var i=0; i<naloge.length; i++) {%>
                 <% if (!naloge[i].done && naloge[i].usluzbenec_id != null) { %>
-                  <a href="#" class="list-group-item"><%= naloge[i].imeOpravila %></a>
+                  <% if (naloge[i].usluzbenec_id == usluzbenci.id) { %>
+                    <a href="#" class="list-group-item"><%= naloge[i].imeOpravila %><button class="progItem" id="prog<%=naloge[i].task_id%>">Release</button><button class="doneItem" id="done<%=naloge[i].task_id%>">Done</button></a>
+                  <% } else { %>
+                    <a href="#" class="list-group-item"><%= naloge[i].imeOpravila %></a>
+                  <% } %>
                 <% } %>
               <% } %>
            </div>
           </div>
-          
+
           <div id="menu2" class="tab-pane fade">
             <div class="jumbotron text-center">
               <div class="row">
@@ -81,7 +86,7 @@
                     <button type="button" class="btn btn-default" id="logout"><div class="glyphicon glyphicon-off logo-large" id="logout_glyphon"></div></button></div>
               </div>
             </div>
-            
+
             <div class="list-group">
               <% for(var i=0; i<naloge.length; i++) {%>
                 <% if (naloge[i].done) { %>
@@ -89,10 +94,10 @@
                 <% } %>
               <% } %>
             </div>
-            
+
           </div>
         </div>
-        
+
         <div id="centeredmenu">
         <ul class="nav nav-tabs">
           <li class="active"><a data-toggle="tab" href="#home">TO-DO</a></li>
@@ -105,7 +110,9 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
 <script src="js/front_page.js"></script>
+<script src="js/koda.js"></script>
 
 </body>
 </html>
