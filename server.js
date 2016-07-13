@@ -87,17 +87,10 @@ server.listen(process.env.PORT, function() {
 io.on('connection', (socket) => {
   console.log('a user connected');
 
-  socket.on('kreirajOpravilo', (data,id_ehr,ime_opravila,loc_id) => {
-    var stmt = pb.prepare("\
-      INSERT INTO naloge \
-      (task_id, usluzbenec_id, ehr_id, \
-      imeOpravila, loc_id, done \
-      VALUES (?,?,?,?,?,?)");
-    stmt.run(steviloTaskov,null,id_ehr,ime_opravila,loc_id,0); 
-    stmt.finalize();
-    steviloTaskov = steviloTaskov + 1;
-
-    console.log(id_ehr +" "+ime_opravila);
+  socket.on('kreirajOpravilo',(data,objekt) => {
+    var stmt = "INSERT INTO naloge (usluzbenec_id, ehr_id,imeOpravila, loc_id, done) VALUES (?,?,?,?,?)";
+      pb.run(stmt,[null,objekt.ehr,objekt.opis,objekt.loc,0]); 
+      steviloTaskov = steviloTaskov + 1;
     console.log(data);
     io.sockets.emit('kreiranoOpravilo',data);
   });
