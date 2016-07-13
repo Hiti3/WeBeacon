@@ -22,8 +22,8 @@
                </div>
               </div>
             </div>
-            
-           
+
+
               <div class="list-group">
               <% for(var i=0; i<naloge.length; i++) {%>
                 <% if (naloge[i].usluzbenec_id == null) { %>
@@ -31,14 +31,14 @@
                 <% } %>
               <% } %>
               </div>
-            
+
           </div>
-          
+
           <div id="menu1" class="tab-pane fade">
             <div class="jumbotron text-center">
               <h2 id="naslov">IN-PROGRESS</h2>
             </div>
-            
+
            <div class="list-group">
               <% for(var i=0; i<naloge.length; i++) {%>
                 <% if (!naloge[i].done && naloge[i].usluzbenec_id != null) { %>
@@ -47,12 +47,12 @@
               <% } %>
            </div>
           </div>
-          
+
           <div id="menu2" class="tab-pane fade">
             <div class="jumbotron text-center">
               <h2 id="naslov">DONE</h2>
             </div>
-            
+
             <div class="list-group">
               <% for(var i=0; i<naloge.length; i++) {%>
                 <% if (naloge[i].done) { %>
@@ -60,10 +60,10 @@
                 <% } %>
               <% } %>
             </div>
-            
+
           </div>
         </div>
-        
+
         <div id="centeredmenu">
         <ul class="nav nav-tabs">
           <li class="active"><a data-toggle="tab" href="#home">TO-DO</a></li>
@@ -77,6 +77,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 <script src="js/front_page.js"></script>
+<script src="js/koda.js"></script>
 
 </body>
 </html>
