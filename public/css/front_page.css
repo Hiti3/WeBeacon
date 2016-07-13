@@ -83,6 +83,56 @@
    right:50%;
    width: 33.3vw;
 }
+
+.glyphicon {
+    position: relative;
+    font-size: 40px !important;
+    left: 10px;
+    top: -15px;
+
+}
+
+.jumbotron p {
+    font-size: 15px;
+    position: relative;
+    top: -18px;
+    margin: 0 0 0px;
+    left: 30px;
+    text-align: center;
+}
+
+#logout {
+    position: relative;
+    margin-left: -65px;
+    margin-top: -20px;
+    padding: 5px 7px 5px 7px;
+    color: #fff;
+    background-color: #527A87;
+}
+
+#logout_glyphon {
+    position: relative;
+    font-size: 30px !important;
+    left: 0;
+    top: 0;
+}
+
+#createTask {
+    position: relative;
+    margin-left: -100px;
+    margin-top: -20px;
+    padding: 5px 7px 5px 7px;
+    color: #fff;
+    background-color: #527A87;
+}
+
+#plus_glyphon {
+    position: relative;
+    font-size: 30px !important;
+    left: 0;
+    top: 0;
+}
+
 /*
 @media screen and (max-width: 768px) {
     .col-sm-4 {
