@@ -42,13 +42,16 @@ app.post('/prijavi', function(zahteva, odgovor) {
 });
 
 app.get('/tasks', function(zahteva, odgovor) {
-  pb.all("SELECT * FROM usluzbenci WHERE email = '" +zahteva.session.email + "' AND geslo = '"+zahteva.session.geslo+"'", function(napaka, vrstice){
-    if(vrstice.length == 0){
-      odgovor.redirect('/index');
-    }
-    else{
-      odgovor.render('tasks', {usluzbenci: vrstice[0]});
-    }
+  pb.all("SELECT * FROM naloge", function(napaka1, vrstice1){
+    pb.all("SELECT * FROM usluzbenci WHERE email = '" +zahteva.session.email + "' AND geslo = '"+zahteva.session.geslo+"'", function(napaka, vrstice){
+      if(vrstice.length == 0){
+        odgovor.redirect('/index');
+      }
+      else{
+        console.log(vrstice1);
+        odgovor.render('tasks', {usluzbenci: vrstice[0],naloge: vrstice1});
+      }
+    })
   })
 });
 
@@ -74,9 +77,8 @@ server.listen(process.env.PORT, function() {
 io.on('connection', (socket) => {
   console.log('a user connected');
 
-  socket.on('chat message', (data, bla) => {
+  socket.on('chat message', (data) => {
     console.log(data);
-    console.log(bla);
     io.sockets.emit('chat',data);
   });
 
