@@ -1,17 +1,18 @@
 .jumbotron { 
-    background-color:#337ab7; 
+    background-color:#5C9FB5; 
     color: #ffffff;
 }
 .btn {
+    background-color: #5C9FB5;
     border: 1px solid #ffffff ;
 }
 
 .logo {
     font-size: 200px;
-    color: #337ab7;
+    color: #5C9FB5;
 }
 .logo-small {
-      color: #337ab7;
+      color: #5C9FB5;
       font-size: 50px;
 }
 .container-fluid {
