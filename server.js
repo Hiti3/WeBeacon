@@ -87,8 +87,17 @@ server.listen(process.env.PORT, function() {
 io.on('connection', (socket) => {
   console.log('a user connected');
 
-  socket.on('kreirajOpravilo', (data) => {
-    console.log(id);
+  socket.on('kreirajOpravilo', (data,id_ehr,ime_opravila,loc_id) => {
+    var stmt = pb.prepare("\
+      INSERT INTO naloge \
+      (task_id, usluzbenec_id, ehr_id, \
+      imeOpravila, loc_id, done \
+      VALUES (?,?,?,?,?,?)");
+    stmt.run(steviloTaskov,null,id_ehr,ime_opravila,loc_id,0); 
+    stmt.finalize();
+    steviloTaskov = steviloTaskov + 1;
+
+    console.log(id_ehr +" "+ime_opravila);
     console.log(data);
     io.sockets.emit('kreiranoOpravilo',data);
   });
@@ -103,7 +112,7 @@ io.on('connection', (socket) => {
 
   socket.on('koncanoOpravilo', (data,id) => {
     var sql03="UPDATE naloge SET done = ? WHERE task_id = ?";
-    pb.run(sql03,[true,id]);
+    pb.run(sql03,[1,id]);
     console.log(id);
     console.log(data);
     io.sockets.emit('koncajOpravilo',data);
