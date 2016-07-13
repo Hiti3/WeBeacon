@@ -1,5 +1,24 @@
+#signIn {
+    width:50%;
+    margin-top: 5px;
+    margin-bottom: 40px;
+}
+
+#sporocilo {
+    padding-bottom: -10px;
+}
+
+#naslov {
+    margin-top: 0px;
+    margin-bottom: 70px;
+}
+
+.form-control {
+    margin-bottom: 5px;
+}
+
 .jumbotron { 
-    background-color:#337ab7; 
+    background-color:#5C9FB5; 
     color: #ffffff;
 }
 .btn {
