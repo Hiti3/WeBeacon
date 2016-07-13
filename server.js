@@ -89,7 +89,7 @@ io.on('connection', (socket) => {
 
   socket.on('kreirajOpravilo',(data,objekt) => {
     var stmt = "INSERT INTO naloge (usluzbenec_id, ehr_id,imeOpravila, loc_id, done) VALUES (?,?,?,?,?)";
-      pb.run(stmt,[null,objekt.ehr,objekt.opis,objekt.loc,0]); 
+      pb.run(stmt,[null,objekt.ehr,objekt.opis,objekt.loc,0]);
       steviloTaskov = steviloTaskov + 1;
     console.log(data);
     io.sockets.emit('kreiranoOpravilo',data);
@@ -97,18 +97,21 @@ io.on('connection', (socket) => {
 
   socket.on('prevzemiOpravilo', (data,id) => {
     var sql03="UPDATE naloge SET usluzbenec_id = ? WHERE task_id = ?";
-    pb.run(sql03,[null,id]);
-    console.log(id);
-    console.log(data);
+    pb.run(sql03,[data,id]);
     io.sockets.emit('prevzetoOpravilo',data);
   });
 
-  socket.on('koncanoOpravilo', (data,id) => {
+  socket.on('sprostiOpravilo', (id) => {
+    var sql03="UPDATE naloge SET usluzbenec_id = ? WHERE task_id = ?";
+    pb.run(sql03,[null,id]);
+    io.sockets.emit('sproscenoOpravilo');
+  });
+
+  socket.on('koncanoOpravilo', (id) => {
     var sql03="UPDATE naloge SET done = ? WHERE task_id = ?";
     pb.run(sql03,[1,id]);
     console.log(id);
-    console.log(data);
-    io.sockets.emit('koncajOpravilo',data);
+    io.sockets.emit('koncajOpravilo');
   });
 
   socket.on('disconnect', () => {

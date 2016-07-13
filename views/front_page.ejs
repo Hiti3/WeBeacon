@@ -9,6 +9,7 @@
 </head>
 
 <body>
+  <p id="usluzbenec" style="display: none"><%=usluzbenci.id%></p>
     <div>
         <div class="tab-content">
           <div id="home" class="tab-pane fade in active">
@@ -27,7 +28,7 @@
               <div class="list-group">
               <% for(var i=0; i<naloge.length; i++) {%>
                 <% if (naloge[i].usluzbenec_id == null) { %>
-                  <a href="#" class="list-group-item"><%= naloge[i].imeOpravila %></a>
+                  <a href="#" class="list-group-item"><%= naloge[i].imeOpravila %><button class="todoItem" id="todo<%=naloge[i].task_id%>">Pick</button></a>
                 <% } %>
               <% } %>
               </div>
@@ -42,7 +43,11 @@
            <div class="list-group">
               <% for(var i=0; i<naloge.length; i++) {%>
                 <% if (!naloge[i].done && naloge[i].usluzbenec_id != null) { %>
-                  <a href="#" class="list-group-item"><%= naloge[i].imeOpravila %></a>
+                  <% if (naloge[i].usluzbenec_id == usluzbenci.id) { %>
+                    <a href="#" class="list-group-item"><%= naloge[i].imeOpravila %><button class="progItem" id="prog<%=naloge[i].task_id%>">Release</button><button class="doneItem" id="done<%=naloge[i].task_id%>">Done</button></a>
+                  <% } else { %>
+                    <a href="#" class="list-group-item"><%= naloge[i].imeOpravila %></a>
+                  <% } %>
                 <% } %>
               <% } %>
            </div>
@@ -76,6 +81,7 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
 <script src="js/front_page.js"></script>
 <script src="js/koda.js"></script>
 
