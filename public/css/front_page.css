@@ -1,6 +1,6 @@
 .jumbotron { 
     height: 10vh;
-    background-color:#337ab7;
+    background-color:#5C9FB5;
     color: #ffffff;
 }
 
@@ -57,9 +57,11 @@
    float:left;
    width:100%;
    background:#fff;
-   border-bottom:1px solid #ddd;
    overflow:hidden;
-   position:relative;
+   position:fixed;
+   bottom: 0;
+   /*border-bottom:1px solid #ddd;*/
+   border-top: solid 1px #ddd;
 }
 #centeredmenu ul {
    clear:left;

@@ -49,7 +49,7 @@ app.get('/tasks', function(zahteva, odgovor) {
       }
       else{
         console.log(vrstice1);
-        odgovor.render('tasks', {usluzbenci: vrstice[0],naloge: vrstice1});
+        odgovor.render('front_page', {usluzbenci: vrstice[0],naloge: vrstice1});
       }
     })
   })
