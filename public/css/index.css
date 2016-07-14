@@ -2,6 +2,12 @@
     width:50%;
     margin-top: 5px;
     margin-bottom: 40px;
+    background-color: #38839C;
+}
+
+#signForm {
+    height: 100vh;
+    margin-top: 10vh;
 }
 
 #sporocilo {
@@ -9,7 +15,7 @@
 }
 
 #naslov {
-    margin-top: 0px;
+    margin-top: 10px;
     margin-bottom: 70px;
 }
 
