@@ -15,6 +15,7 @@
 </head>
 
 <body>
+
   <p id="usluzbenec" style="display: none"><%=usluzbenci.id%></p>
   <p id="usluzbenecLoc" style="display: none"><%=usluzbenci.loc_id%></p>
     <div>
@@ -26,7 +27,6 @@
                   <div class="glyphicon glyphicon-user logo-large"></div></div>
                 <div class="col-xs-1 col-sm-1 col-md-1">
                   <p><%= usluzbenci.ime + " " + usluzbenci.primek %></p></div>
-
                   <div class="col-xs-8 col-sm-8 col-md-8"></div>
 
                   <div class="col-xs-1 col-sm-1 col-md-1">
@@ -39,35 +39,33 @@
 
 
               <div class="list-group" id="list-todo">
-              <% for(var i=0; i<naloge.length; i++) {%>
-                <% if (naloge[i].usluzbenec_id == null) { %>
-                  <a href="#" class="list-group-item"><%=naloge[i].imeOpravila %>
-                  <button  onclick="prikaziPodatke(<%=naloge[i].task_id%>,<%=naloge[i].ehr_id%>,null,1)">Pacient info</button>
-                  <button class="todoItem" id="todo<%=naloge[i].task_id%>"><div class="glyphicon glyphicon-ok-circle logo-large" id="check_glyphon"></div></button></a>
+              <% for(var i in todo) {%>
+                  <a href="#" class="list-group-item"><%=todo[i].imeOpravila %>
+                  <button  onclick="prikaziPodatke(<%=todo[i].task_id%>,<%=todo[i].ehr_id%>,null,1)">Pacient info</button>
+                  <button class="todoItem" id="todo<%=todo[i].task_id%>"><div class="glyphicon glyphicon-ok-circle logo-large" id="check_glyphon"></div></button></a>
 
-                  <div class="panel panel-default" id="taskTo<%=naloge[i].task_id%>" style="display:none">
-                      <div class="panel-body" id="taskT<%=naloge[i].task_id%>">
+                  <div class="panel panel-default" id="taskTo<%=todo[i].task_id%>" style="display:none">
+                      <div class="panel-body" id="taskT<%=todo[i].task_id%>">
                         <div class="row">
                         <div class="col-sm-4">
                           <span class="label label-info">Description</span>
-                          <input type="text" class="form-control input-mini" value="<%=naloge[i].imeOpravila%>"readonly>
+                          <input type="text" class="form-control input-mini" value="<%=todo[i].imeOpravila%>"readonly>
                         </div>
                         <div class="col-sm-4">
                           <span class="label label-info">Location</span>
-                          <input type="text"class="form-control input-mini" value="<%=naloge[i].loc_id%>" readonly>
+                          <input type="text"class="form-control input-mini" value="<%=todo[i].loc_id%>" readonly>
                         </div>
                         <div class="col-sm-4">
                           <span class="label label-info">Until</span>
-                          <input type="text" class="form-control input-mini" value="<%=naloge[i].createDatum%>" readonly>
+                          <input type="text" class="form-control input-mini" value="<%=todo[i].until%>" readonly>
                           </div>
                         </div>
                       </div>
                   </div>
-                  <div class="panel panel-default" id="show<%=naloge[i].task_id%>" style="display:none">
-                    <div class="panel-body" id="panel<%=naloge[i].task_id%>"></div>
+                  <div class="panel panel-default" id="show<%=todo[i].task_id%>" style="display:none">
+                    <div class="panel-body" id="panel<%=todo[i].task_id%>"></div>
                   </div>
 
-                <% } %>
               <% } %>
               </div>
 

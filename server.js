@@ -3,6 +3,7 @@ if (!process.env.PORT) {
 }
 
 //set up server
+var lokacija = [[0,10,2], [10,0,12], [2,12,0]];
 var express =require('express');
 var app = express();
 var server = require('http').Server(app);
@@ -50,15 +51,75 @@ app.post('/odjavi', function(zahteva, odgovor) {
 
 
 app.get('/tasks', function(zahteva, odgovor) {
-  pb.all("SELECT * FROM naloge", function(napaka1, vrstice1){
+  pb.all("SELECT * FROM naloge", function(napaka1, opravila){
     pb.all("SELECT * FROM usluzbenci WHERE email = '" +zahteva.session.email + "' AND geslo = '"+zahteva.session.geslo+"'", function(napaka, vrstice){
       if(vrstice.length == 0){
         zahteva.session.sporociloZaIzpisNaStrani = "Neuspešna prijava, prijavite se še enkrat";
         odgovor.redirect('/index');
       }
       else{
-        console.log(vrstice1);
-        odgovor.render('front_page', {usluzbenci: vrstice[0],naloge: vrstice1});
+        console.log(opravila);
+        var toDo = {};
+        var stevecTD = 0
+        for (var i in opravila) {
+          if (opravila[i].usluzbenec_id === null ) {
+            toDo[stevecTD] = opravila[i];
+            toDo[stevecTD].index = stevecTD;
+            stevecTD++;
+          }
+        }
+        var datum = new Date();
+        datum = datum.getTime();
+        for (var i in toDo) {
+          if (toDo[i].prioriteta === 1) {
+            toDo[i].pomembnost = 10000;
+            toDo[i].createDatum = 0;
+          } else {
+            toDo[i].pomembnost = 0;
+          }
+          var until = new Date(parseInt(toDo[i].createDatum));
+          var razlika = until - datum;
+          razlika = Math.floor(razlika / 60000); // v minute
+          // var absolutna = razlika;
+          // if (absolutna<0) {
+          //   absolutna = absolutna * (-1);
+          // }
+          if (razlika<=-10) {
+            toDo[i].pomembnost = 10000;
+            toDo[i].createDatum = 0;
+          } else if (-10<razlika && razlika<=10) {
+            toDo[i].pomembnost += 3000;
+          } else if (10<razlika && razlika<=60) {
+            toDo[i].pomembnost += 2000;
+          } else {
+            toDo[i].pomembnost += 1000;
+          }
+          toDo[i].pomembnost -= lokacija[toDo[i].loc_id][vrstice[0].loc_id];
+          if(toDo[i].createDatum === 0) {
+            razlika = "Urgent";
+          } else if (razlika > 60) {
+            var kolkur = Math.floor(razlika/60);
+            var kolkmin = razlika - (kolkur * 60);
+            razlika = kolkur + "h" + kolkmin + "min";
+          } else {
+            razlika = razlika + "min";
+          }
+          toDo[i].until = razlika;
+        }
+
+        var swapped;
+        do {
+          swapped = false;
+          for (var i=0; i < stevecTD-1; i++) {
+            if (toDo[i].pomembnost < toDo[i+1].pomembnost) {
+              var temp = toDo[i];
+              toDo[i] = toDo[i+1];
+                toDo[i+1] = temp;
+                swapped = true;
+            }
+          }
+        } while (swapped);
+        odgovor.render('front_page', {usluzbenci: vrstice[0],naloge: opravila, todo: toDo});
       }
     })
   })

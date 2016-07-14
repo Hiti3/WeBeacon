@@ -9,12 +9,12 @@ $('.list-group').on('click', '.todoItem',function() {
   socket.emit('prevzemiOpravilo', usluzbenec_id, todoID);
 })
 
-$('.progItem').click(function() {
+$('.list-group').on('click', '.progItem',function() {
   var progID = $(this).attr("id").replace("prog", "");
   socket.emit('sprostiOpravilo', progID);
 })
 
-$('.doneItem').click(function() {
+$('.list-group').on('click', '.doneItem',function() {
   var doneID = $(this).attr("id").replace("done", "");
   socket.emit('koncanoOpravilo', doneID);
 })
@@ -83,7 +83,7 @@ socket.on('opravila', function(opravila) {
       }
     }
   } while (swapped);
-  console.log(toDo);
+  // console.log(toDo);
   $('#list-todo').empty();
   var izpis = '';
   for(var i=0; i<stevecTD; i++) {
@@ -114,4 +114,102 @@ socket.on('opravila', function(opravila) {
       </div>';
   }
   $('#list-todo').append(izpis);
+  $('#list-progress1').empty();
+  var izpis = '';
+  for(var i in opravila) {
+    if (!opravila[i].done && opravila[i].usluzbenec_id != null) {
+      if (opravila[i].usluzbenec_id == usluzbenec_id) {
+        izpis += '<a href="#" class="list-group-item">'+opravila[i].imeOpravila+'\
+        <button  onclick="prikaziPodatke('+opravila[i].task_id+','+opravila[i].ehr_id+','+opravila[i].usluzbenec_id+',null)">Pacient info</button>\
+        <button class="doneItem" id="done'+opravila[i].task_id+'"><div class="glyphicon glyphicon-ok-circle logo-large" id="done_glyphon"></div></button>\
+        <button class="progItem" id="prog'+opravila[i].task_id+'"><div class="glyphicon glyphicon-ban-circle logo-large" id="ban_glyphon"></div></button></a>\
+\
+        <div class="panel panel-default" id="progressTo'+opravila[i].task_id+'" style="display:none">\
+        <div class="panel-body" id="progressT'+opravila[i].task_id+'">\
+          <div class="row">\
+          <div class="col-sm-4">\
+            <span class="label label-info">Description</span>\
+            <input type="text" class="form-control input-mini" value="'+opravila[i].imeOpravila+'"readonly>\
+          </div>\
+          <div class="col-sm-4">\
+            <span class="label label-info">Location</span>\
+            <input type="text"class="form-control input-mini" value="'+opravila[i].loc_id+'" readonly>\
+          </div>\
+          <div class="col-sm-4">\
+            <span class="label label-info">Until</span>\
+            <input type="text" class="form-control input-mini" value="'+opravila[i].createDatum+'" readonly>\
+            </div>\
+          </div>\
+        </div>\
+      </div>\
+      <div class="panel panel-default" id="see'+opravila[i].task_id+'" style="display:none">\
+        <div class="panel-body" id="panela'+opravila[i].task_id+'"></div>\
+      </div>'
+
+      }
+    }
+  }
+  $('#list-progress1').append(izpis);
+  $('#list-progress2').empty();
+  var izpis = '';
+  for(var i in opravila) {
+    if (!opravila[i].done && opravila[i].usluzbenec_id != null) {
+      if (opravila[i].usluzbenec_id != usluzbenec_id) {
+        izpis += '<a href="#" class="list-group-item">'+opravila[i].imeOpravila+'\
+        <div class="panel panel-default" id="progressTo'+opravila[i].task_id+'" style="display:none">\
+        <div class="panel-body" id="progressT'+opravila[i].task_id+'">\
+          <div class="row">\
+          <div class="col-sm-4">\
+            <span class="label label-info">Description</span>\
+            <input type="text" class="form-control input-mini" value="'+opravila[i].imeOpravila+'"readonly>\
+          </div>\
+          <div class="col-sm-4">\
+            <span class="label label-info">Location</span>\
+            <input type="text"class="form-control input-mini" value="'+opravila[i].loc_id+'" readonly>\
+          </div>\
+          <div class="col-sm-4">\
+            <span class="label label-info">Until</span>\
+            <input type="text" class="form-control input-mini" value="'+opravila[i].createDatum+'" readonly>\
+            </div>\
+          </div>\
+        </div>\
+      </div>\
+      <div class="panel panel-default" id="see'+opravila[i].task_id+'" style="display:none">\
+        <div class="panel-body" id="panela'+opravila[i].task_id+'"></div>\
+      </div>'
+
+      }
+    }
+  }
+  $('#list-progress2').append(izpis);
+  $('#list-done').empty();
+  var izpis = '';
+  for(var i in opravila) {
+    if (opravila[i].done) {
+        izpis += '<a href="#" class="list-group-item">'+opravila[i].imeOpravila+'\
+        <div class="panel panel-default" id="progressTo'+opravila[i].task_id+'" style="display:none">\
+        <div class="panel-body" id="progressT'+opravila[i].task_id+'">\
+          <div class="row">\
+          <div class="col-sm-4">\
+            <span class="label label-info">Description</span>\
+            <input type="text" class="form-control input-mini" value="'+opravila[i].imeOpravila+'"readonly>\
+          </div>\
+          <div class="col-sm-4">\
+            <span class="label label-info">Location</span>\
+            <input type="text"class="form-control input-mini" value="'+opravila[i].loc_id+'" readonly>\
+          </div>\
+          <div class="col-sm-4">\
+            <span class="label label-info">Until</span>\
+            <input type="text" class="form-control input-mini" value="'+opravila[i].createDatum+'" readonly>\
+            </div>\
+          </div>\
+        </div>\
+      </div>\
+      <div class="panel panel-default" id="see'+opravila[i].task_id+'" style="display:none">\
+        <div class="panel-body" id="panela'+opravila[i].task_id+'"></div>\
+      </div>'
+
+      }
+  }
+  $('#list-done').append(izpis);
 });
