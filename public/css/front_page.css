@@ -150,7 +150,7 @@
     border-radius: 100%;
     border: 0px;
     background-color: #7EC965;
-    margin-top: -8px;
+    margin-top: -4px;
     margin-right: 0.5vw;
     width: 35px;
 }
@@ -170,7 +170,7 @@
     border-radius: 100%;
     border: 0px;
     background-color: #C9A842;
-    margin-top: -8px;
+    margin-top: -4px;
     margin-right: 1.5vw;
     width: 35px;
 }
@@ -190,7 +190,7 @@
     border-radius: 100%;
     border: 0px;
     background-color: #7EC965;
-    margin-top: -8px;
+    margin-top: -4px;
     margin-right: 0.5vw;
     width: 35px;
 }
@@ -198,6 +198,7 @@
 .label {
   background-color: #5C9FB5;
 }
+
 
 /*
 @media screen and (max-width: 768px) {
