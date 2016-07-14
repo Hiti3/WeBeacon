@@ -195,6 +195,10 @@
     width: 35px;
 }
 
+.label {
+  background-color: #5C9FB5;
+}
+
 /*
 @media screen and (max-width: 768px) {
     .col-sm-4 {

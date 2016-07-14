@@ -68,6 +68,7 @@ app.get('/', function(zahteva, odgovor) {
   if(!zahteva.session.sporociloZaIzpisNaStrani){
     zahteva.session.sporociloZaIzpisNaStrani = '';
   }
+
   odgovor.redirect('/index');
 })
 
@@ -86,17 +87,19 @@ io.on('connection', (socket) => {
   console.log('a user connected');
 
   socket.on('kreirajOpravilo',(data,objekt) => {
-    var stmt = "INSERT INTO naloge (usluzbenec_id, ehr_id,imeOpravila, loc_id, done,prioriteta) VALUES (?,?,?,?,?,?)";
-      pb.run(stmt,[null,objekt.ehr,objekt.opis,objekt.loc,0,objekt.priority]);
-    console.log(data);
+    var stmt = "INSERT INTO naloge (usluzbenec_id, ehr_id,imeOpravila, loc_id, done,prioriteta,createDatum,updateDatum) VALUES (?,?,?,?,?,?,?,?)";
+    var d = new Date();
+    pb.run(stmt,[null,objekt.ehr,objekt.opis,objekt.loc,0,objekt.priority,d,d]);
+    console.log(data +"lalala");
     pb.all("SELECT * FROM naloge", function(napaka, vrstice){
       io.sockets.emit('opravila',vrstice);
     });
   });
 
   socket.on('prevzemiOpravilo', (data,id) => {
-    var sql03="UPDATE naloge SET usluzbenec_id = ? WHERE task_id = ?";
-    pb.run(sql03,[data,id]);
+    var sql03="UPDATE naloge SET usluzbenec_id = ?,updateDatum= ? WHERE task_id = ?";
+    var d = new Date();
+    pb.run(sql03,[data,d,id]);
     pb.all("SELECT * FROM naloge", function(napaka, vrstice){
       console.log(vrstice);
       io.sockets.emit('opravila',vrstice);
@@ -104,8 +107,9 @@ io.on('connection', (socket) => {
   });
 
   socket.on('sprostiOpravilo', (id) => {
-    var sql03="UPDATE naloge SET usluzbenec_id = ? WHERE task_id = ?";
-    pb.run(sql03,[null,id]);
+    var sql03="UPDATE naloge SET usluzbenec_id = ?,updateDatum = ? WHERE task_id = ?";
+    var d = new Date();
+    pb.run(sql03,[null,d,id]);
     pb.all("SELECT * FROM naloge", function(napaka, vrstice){
       console.log(vrstice);
       io.sockets.emit('opravila', vrstice);
@@ -113,8 +117,10 @@ io.on('connection', (socket) => {
   });
 
   socket.on('koncanoOpravilo', (id) => {
-    var sql03="UPDATE naloge SET done = ? WHERE task_id = ?";
-    pb.run(sql03,[1,id]);
+    var sql03="UPDATE naloge SET done = ?,updateDatum = ? WHERE task_id = ?";
+    var d = new Date();
+    d.setDate(d.getDate());
+    pb.run(sql03,[1,d,id]);
     pb.all("SELECT * FROM naloge", function(napaka, vrstice){
       console.log(vrstice);
       io.sockets.emit('opravila',vrstice);

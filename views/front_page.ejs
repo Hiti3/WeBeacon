@@ -6,6 +6,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
   <link href="css/front_page.css" rel="stylesheet">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
 </head>
 
 <body>
@@ -33,7 +39,16 @@
               <div class="list-group">
               <% for(var i=0; i<naloge.length; i++) {%>
                 <% if (naloge[i].usluzbenec_id == null) { %>
-                  <a href="#" class="list-group-item"><%= naloge[i].imeOpravila %><button class="todoItem" id="todo<%=naloge[i].task_id%>"><div class="glyphicon glyphicon-ok-circle logo-large" id="check_glyphon"></div></button></a>
+                  <a href="#" class="list-group-item"><%= naloge[i].imeOpravila %>
+                  <button  onclick="prikaziPodatke(<%=naloge[i].task_id%>,<%=naloge[i].ehr_id%>,null,1)">Pacient</button>
+                  <button class="todoItem" id="todo<%=naloge[i].task_id%>"><div class="glyphicon glyphicon-ok-circle logo-large" id="check_glyphon"></div></button></a>
+                  
+                   <div class="container" >
+                    <div class="panel panel-default" id="show<%=naloge[i].task_id%>" style="display:none">
+                        <div class="panel-body" id="panel<%=naloge[i].task_id%>"></div>
+                    </div>
+                 </div>
+                 
                 <% } %>
               <% } %>
               </div>
@@ -62,8 +77,16 @@
                 <% if (!naloge[i].done && naloge[i].usluzbenec_id != null) { %>
                   <% if (naloge[i].usluzbenec_id == usluzbenci.id) { %>
                     <a href="#" class="list-group-item"><%= naloge[i].imeOpravila %>
+                    <button  onclick="prikaziPodatke(<%=naloge[i].task_id%>,<%=naloge[i].ehr_id%>,<%=naloge[i].usluzbenec_id%>,null)">Pacient</button>
                     <button class="doneItem" id="done<%=naloge[i].task_id%>"><div class="glyphicon glyphicon-ok-circle logo-large" id="done_glyphon"></div></button>
                     <button class="progItem" id="prog<%=naloge[i].task_id%>"><div class="glyphicon glyphicon-ban-circle logo-large" id="ban_glyphon"></div></button></a>
+                    
+                    <div class="container" >
+                      <div class="panel panel-default" id="see<%=naloge[i].task_id%>" style="display:none">
+                           <div class="panel-body" id="panela<%=naloge[i].task_id%>"></div>
+                      </div>
+                    </div>
+                    
                   <% } else { %>
                     <a href="#" class="list-group-item"><%= naloge[i].imeOpravila %></a>
                   <% } %>
@@ -92,7 +115,15 @@
             <div class="list-group">
               <% for(var i=0; i<naloge.length; i++) {%>
                 <% if (naloge[i].done) { %>
-                  <a href="#" class="list-group-item"><%= naloge[i].imeOpravila %></a>
+                  <a href="#" class="list-group-item"><%= naloge[i].imeOpravila %>
+                  <button  onclick="prikaziPodatke(<%=naloge[i].task_id%>,<%=naloge[i].ehr_id%>,<%=naloge[i].usluzbenec_id%>,1)">Pacient</button></a>
+                  
+                  <div class="container" >
+                    <div class="panel panel-default" id="vidi<%=naloge[i].task_id%>" style="display:none">
+                         <div class="panel-body" id="tabla<%=naloge[i].task_id%>"></div>
+                     </div>
+                  </div>
+
                 <% } %>
               <% } %>
             </div>
@@ -110,9 +141,6 @@
     </div>
 
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-<script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
 <script src="js/front_page.js"></script>
 <script src="js/koda.js"></script>
 

@@ -1,14 +1,5 @@
 var socket = io();
-$('form').submit(function(){
-  var objekt ={ehr: "1", opis:"Lepa Brena", loc:"0"}
-  socket.emit('kreirajOpravilo', $('#m').val(),objekt);
-  $('#m').val('');
-  return false;
-});
-// socket.on('kreiranoOpravilo', function(msg){
-//   $('#messages').append($('<li>').text(msg));
-//   $("#usluzbenci").text(msg);
-// });
+
 $('.todoItem').click(function() {
   var todoID = $(this).attr("id").replace("todo", "");
   var usluzbenec_id = $("#usluzbenec").text();
