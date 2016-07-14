@@ -87,8 +87,10 @@ socket.on('opravila', function(opravila) {
   $('#list-todo').empty();
   var izpis = '';
   for(var i=0; i<stevecTD; i++) {
-    izpis += '<a href="#" class="list-group-item">'+toDo[i].imeOpravila+'\
-    <button  onclick="prikaziPodatke('+toDo[i].task_id+','+toDo[i].ehr_id+','+null+',1)">Pacient info</button>\
+    izpis += '<a href="#" class="list-group-item">\
+    <i class="fa fa-exclamation" aria-hidden="true"></i>\
+    '+toDo[i].imeOpravila+'\
+    <button class="patientInfoBtn" onclick="prikaziPodatke('+toDo[i].task_id+','+toDo[i].ehr_id+',null,1)"><div class="glyphicon glyphicon-glyphicon glyphicon-info-sign logo-large" id="patientInfo"></div></button>\
     <button class="todoItem" id="todo'+toDo[i].task_id+'"><div class="glyphicon glyphicon-ok-circle logo-large" id="check_glyphon"></div></button></a>\
 \
     <div class="panel panel-default" id="taskTo'+toDo[i].task_id+'" style="display:none">\
@@ -120,9 +122,9 @@ socket.on('opravila', function(opravila) {
     if (!opravila[i].done && opravila[i].usluzbenec_id != null) {
       if (opravila[i].usluzbenec_id == usluzbenec_id) {
         izpis += '<a href="#" class="list-group-item">'+opravila[i].imeOpravila+'\
-        <button  onclick="prikaziPodatke('+opravila[i].task_id+','+opravila[i].ehr_id+','+opravila[i].usluzbenec_id+',null)">Pacient info</button>\
-        <button class="doneItem" id="done'+opravila[i].task_id+'"><div class="glyphicon glyphicon-ok-circle logo-large" id="done_glyphon"></div></button>\
-        <button class="progItem" id="prog'+opravila[i].task_id+'"><div class="glyphicon glyphicon-ban-circle logo-large" id="ban_glyphon"></div></button></a>\
+        <button class="patientInfoBtn" onclick="prikaziPodatke('+opravila[i].task_id+','+opravila[i].ehr_id+',null,1)"><div class="glyphicon glyphicon-glyphicon glyphicon-info-sign logo-large" id="patientInfo"></div></button>\
+        <button class="doneItem" id="done'+opravila[i].task_id+'"><i class="glyphicon glyphicon-ok-circle logo-large" id="done_glyphon"></i></button>\
+        <button class="progItem" id="prog'+opravila[i].task_id+'"><i class="glyphicon glyphicon-ban-circle logo-large" id="ban_glyphon"></i></button></a>\
 \
         <div class="panel panel-default" id="progressTo'+opravila[i].task_id+'" style="display:none">\
         <div class="panel-body" id="progressT'+opravila[i].task_id+'">\
@@ -144,7 +146,7 @@ socket.on('opravila', function(opravila) {
       </div>\
       <div class="panel panel-default" id="see'+opravila[i].task_id+'" style="display:none">\
         <div class="panel-body" id="panela'+opravila[i].task_id+'"></div>\
-      </div>'
+      </div>';
 
       }
     }
@@ -155,7 +157,7 @@ socket.on('opravila', function(opravila) {
   for(var i in opravila) {
     if (!opravila[i].done && opravila[i].usluzbenec_id != null) {
       if (opravila[i].usluzbenec_id != usluzbenec_id) {
-        izpis += '<a href="#" class="list-group-item">'+opravila[i].imeOpravila+'\
+        izpis += '<a href="#" class="list-group-item">'+opravila[i].imeOpravila+'</a>\
         <div class="panel panel-default" id="progressTo'+opravila[i].task_id+'" style="display:none">\
         <div class="panel-body" id="progressT'+opravila[i].task_id+'">\
           <div class="row">\
@@ -176,7 +178,7 @@ socket.on('opravila', function(opravila) {
       </div>\
       <div class="panel panel-default" id="see'+opravila[i].task_id+'" style="display:none">\
         <div class="panel-body" id="panela'+opravila[i].task_id+'"></div>\
-      </div>'
+      </div>';
 
       }
     }
@@ -187,6 +189,8 @@ socket.on('opravila', function(opravila) {
   for(var i in opravila) {
     if (opravila[i].done) {
         izpis += '<a href="#" class="list-group-item">'+opravila[i].imeOpravila+'\
+        <button class="patientInfoBtn" onclick="prikaziPodatke('+opravila[i].task_id+','+opravila[i].ehr_id+',null,1)"><div class="glyphicon glyphicon-glyphicon glyphicon-info-sign logo-large" id="patientInfo"></div></button></a>\
+\
         <div class="panel panel-default" id="progressTo'+opravila[i].task_id+'" style="display:none">\
         <div class="panel-body" id="progressT'+opravila[i].task_id+'">\
           <div class="row">\
@@ -207,7 +211,7 @@ socket.on('opravila', function(opravila) {
       </div>\
       <div class="panel panel-default" id="see'+opravila[i].task_id+'" style="display:none">\
         <div class="panel-body" id="panela'+opravila[i].task_id+'"></div>\
-      </div>'
+      </div>';
 
       }
   }
