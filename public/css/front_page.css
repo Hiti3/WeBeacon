@@ -16,7 +16,7 @@
 
 .tab-content {
     padding:10px;
-    border:1px solid #ddd;
+    /*border:1px solid #ddd;*/
 }
 .nav-tabs > li {
     margin-bottom:0;
@@ -51,6 +51,10 @@
     cursor: default;
     background-color: #CEDCE0;
     border: 1px solid #ddd;
+}
+
+.nav > li > a {
+    padding: 10px;
 }
 
 #centeredmenu {
@@ -120,7 +124,7 @@
 
 #createTask {
     position: relative;
-    margin-left: -90px;
+    margin-left: -110px;
     margin-top: -20px;
     padding: 5px 7px 5px 7px;
     color: #fff;
@@ -138,71 +142,123 @@
 #check_glyphon {
     position: relative;
     font-size: 28px !important;
-    left: -2.3px;
-    top: 2.7px;
+    left: 0px;
+    top: 1px;
     color: white;
+    line-height: 35px;
 }
 
 .todoItem {
     position: relative;
-    /*margin-top: -3px;*/
+    margin: 0;
     float: right;
     border-radius: 100%;
     border: 0px;
     background-color: #7EC965;
-    margin-top: -4px;
+    margin-top: -8px;
     margin-right: 0.5vw;
     width: 35px;
+    padding: 0;
 }
 
 #ban_glyphon {
     position: relative;
     font-size: 28px !important;
-    left: -2.3px;
-    top: 2.7px;
+    left: 0px;
+    top: 1px;
     color: white;
+    line-height: 35px;
 }
 
 .progItem {
     position: relative;
-    /*margin-top: -3px;*/
+    margin: 0;
     float: right;
     border-radius: 100%;
     border: 0px;
     background-color: #C9A842;
-    margin-top: -4px;
+    margin-top: -8px;
     margin-right: 1.5vw;
     width: 35px;
+    padding: 0;
 }
 
 #done_glyphon {
     position: relative;
     font-size: 28px !important;
-    left: -2.3px;
-    top: 2.7px;
-    color: white; 
+    left: 0px;
+    top: 1px;
+    color: white;
+    line-height: 35px;
 }
 
 .doneItem {
     position: relative;
-    /*margin-top: -3px;*/
+    margin: 0;
     float: right;
     border-radius: 100%;
     border: 0px;
     background-color: #7EC965;
-    margin-top: -4px;
+    margin-top: -8px;
     margin-right: 0.5vw;
     width: 35px;
+    padding: 0;
+}
+
+.patientInfoBtn {
+    position: relative;
+    margin: 0;
+    float: right;
+    border-radius: 100%;
+    border: 0px;
+    background-color: #84A9CF;
+    margin-top: -8px;
+    margin-left: 4px;
+    margin-right: -1vw;
+    width: 35px;
+    padding: 0;
+}
+
+#patientInfo {
+    position: relative;
+    font-size: 28px !important;
+    left: 0px;
+    top: 1px;
+    color: white;
+    line-height: 35px;
 }
 
 .label {
   background-color: #5C9FB5;
 }
 
-#myTasks {
-    
+#myTasks > .panel-heading {
+    text-align: center;
+    font-size: 17px;
 }
 
+#myTasks > .panel-body {
+    padding: 0;
+}
+
+.panel-body .list-group .list-group-item {
+    margin-bottom: 0px;
+    border:0;
+    border-bottom: 1px solid #ddd;
+}
+.panel-body .list-group {
+    margin-bottom: 0px;
+}
+
+#otherTasks > .panel-heading {
+    text-align: center;
+    font-size: 17px;
+}
+
+#otherTasks > .panel-body {
+    padding: 0;
+}
+ 
 /*
 @media screen and (max-width: 768px) {
     .col-sm-4 {
