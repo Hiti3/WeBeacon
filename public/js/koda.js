@@ -3,6 +3,31 @@ var socket = io();
 var lokacija = [[0,10,2], [10,0,12], [2,12,0]];
 var naloge;
 
+$('#posljiVsem').click(function(){
+    var imeO = $('#dodajIme').val();
+    var opisO = $('#dodajOpis').val();
+    var lokacijaO= $('#dodajLokacijo').val();
+    var prioritetaO =$('#dodajPrioriteto').val();
+    var ehrIdO = $('#dodajEhr').val();
+
+    if($('#dodajEhr').val().length === 0){
+      ehrIdO ="12345";
+    }
+
+    if(imeO == "" || opisO == "" || lokacijaO == "" || prioritetaO == ""){
+      $('#uspesnoAliNeuspesno').modal('show');
+      $('#sporociloTaska').text("Your task wasn't created!");
+    }
+    else{
+      var usluzbenec_id = $("#usluzbenec").text();
+      var kreiranObjekt = {ime:imeO, opis:opisO, loc:lokacijaO, priority: prioritetaO, ehr:ehrIdO};
+      console.log(kreiranObjekt);
+      socket.emit('kreirajOpravilo', usluzbenec_id, kreiranObjekt);
+      $('#uspesnoAliNeuspesno').modal('show');
+      $('#sporociloTaska').text("Your task is created!");
+    }
+})
+
 $('.list-group').on('click', '.todoItem',function() {
   var todoID = $(this).attr("id").replace("todo", "");
   var usluzbenec_id = $("#usluzbenec").text();
@@ -98,7 +123,7 @@ socket.on('opravila', function(opravila) {
           <div class="row">\
           <div class="col-sm-4">\
             <span class="label label-info">Description</span>\
-            <input type="text" class="form-control input-mini" value="'+toDo[i].imeOpravila+'"readonly>\
+            <input type="text" class="form-control input-mini" value="'+toDo[i].opisNaloge+'"readonly>\
           </div>\
           <div class="col-sm-4">\
             <span class="label label-info">Location</span>\
@@ -122,7 +147,7 @@ socket.on('opravila', function(opravila) {
     if (!opravila[i].done && opravila[i].usluzbenec_id != null) {
       if (opravila[i].usluzbenec_id == usluzbenec_id) {
         izpis += '<a href="#" class="list-group-item">'+opravila[i].imeOpravila+'\
-        <button class="patientInfoBtn" onclick="prikaziPodatke('+opravila[i].task_id+','+opravila[i].ehr_id+',null,1)"><div class="glyphicon glyphicon-glyphicon glyphicon-info-sign logo-large" id="patientInfo"></div></button>\
+        <button class="patientInfoBtn" onclick="prikaziPodatke('+opravila[i].task_id+','+opravila[i].ehr_id+','+opravila[i].usluzbenec_id+',null)"><div class="glyphicon glyphicon-glyphicon glyphicon-info-sign logo-large" id="patientInfo"></div></button>\
         <button class="doneItem" id="done'+opravila[i].task_id+'"><i class="glyphicon glyphicon-ok-circle logo-large" id="done_glyphon"></i></button>\
         <button class="progItem" id="prog'+opravila[i].task_id+'"><i class="glyphicon glyphicon-ban-circle logo-large" id="ban_glyphon"></i></button></a>\
 \
@@ -131,7 +156,7 @@ socket.on('opravila', function(opravila) {
           <div class="row">\
           <div class="col-sm-4">\
             <span class="label label-info">Description</span>\
-            <input type="text" class="form-control input-mini" value="'+opravila[i].imeOpravila+'"readonly>\
+            <input type="text" class="form-control input-mini" value="'+opravila[i].opisNaloge+'"readonly>\
           </div>\
           <div class="col-sm-4">\
             <span class="label label-info">Location</span>\
@@ -163,7 +188,7 @@ socket.on('opravila', function(opravila) {
           <div class="row">\
           <div class="col-sm-4">\
             <span class="label label-info">Description</span>\
-            <input type="text" class="form-control input-mini" value="'+opravila[i].imeOpravila+'"readonly>\
+            <input type="text" class="form-control input-mini" value="'+opravila[i].opisNaloge+'"readonly>\
           </div>\
           <div class="col-sm-4">\
             <span class="label label-info">Location</span>\
@@ -187,16 +212,17 @@ socket.on('opravila', function(opravila) {
   $('#list-done').empty();
   var izpis = '';
   for(var i in opravila) {
+    console.log(opravila[i].ehr_id);
     if (opravila[i].done) {
         izpis += '<a href="#" class="list-group-item">'+opravila[i].imeOpravila+'\
-        <button class="patientInfoBtn" onclick="prikaziPodatke('+opravila[i].task_id+','+opravila[i].ehr_id+',null,1)"><div class="glyphicon glyphicon-glyphicon glyphicon-info-sign logo-large" id="patientInfo"></div></button></a>\
+        <button class="patientInfoBtn" onclick="prikaziPodatke('+opravila[i].task_id+','+opravila[i].ehr_id+','+opravila[i].usluzbenec_id+',1)"><div class="glyphicon glyphicon-glyphicon glyphicon-info-sign logo-large" id="patientInfo"></div></button></a>\
 \
         <div class="panel panel-default" id="progressTo'+opravila[i].task_id+'" style="display:none">\
         <div class="panel-body" id="progressT'+opravila[i].task_id+'">\
           <div class="row">\
           <div class="col-sm-4">\
             <span class="label label-info">Description</span>\
-            <input type="text" class="form-control input-mini" value="'+opravila[i].imeOpravila+'"readonly>\
+            <input type="text" class="form-control input-mini" value="'+opravila[i].opisNaloge+'"readonly>\
           </div>\
           <div class="col-sm-4">\
             <span class="label label-info">Location</span>\

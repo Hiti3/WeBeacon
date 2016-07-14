@@ -19,6 +19,14 @@ function vsebina1_html(tasks) {
     return s;
 }
 
+$('#createTask').click(function(){
+    $('#dodajIme').val("");
+    $('#dodajOpis').val("");
+    $('#dodajLokacijo').val("");
+    $('#dodajPrioriteto').val("");
+    $('#dodajEhr').val("");
+})
+
 var baseUrl = 'https://rest.ehrscape.com/rest/v1';
 var queryUrl = baseUrl + '/query';
 var username = "ois.seminar";
@@ -37,7 +45,6 @@ function getSessionId() {
 }
 
 function prikaziPodatke(id,ehrId,usluzbenec,done){
-    ehrId = "53db43f5-f709-4202-87d8-289e6223bc35";
     if(usluzbenec == null){
         var prikazi = "#show"+id;
         var dodaj = "#panel"+id;
@@ -69,7 +76,7 @@ function prikaziPodatke(id,ehrId,usluzbenec,done){
         $(''+prikazi+'').empty();
     }
     else{*/
-        if(ehrId !== null){
+        if(ehrId != '12345'){
         // $(''+prikazi+'').attr('style','display: block');
         // $(''+prikazi1+'').attr('style','display: block');
 

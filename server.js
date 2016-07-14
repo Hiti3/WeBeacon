@@ -148,10 +148,14 @@ io.on('connection', (socket) => {
   console.log('a user connected');
 
   socket.on('kreirajOpravilo',(data,objekt) => {
-    var stmt = "INSERT INTO naloge (usluzbenec_id, ehr_id,imeOpravila, loc_id, done,prioriteta,createDatum,updateDatum) VALUES (?,?,?,?,?,?,?,?)";
-    var d = new Date();
-    pb.run(stmt,[null,objekt.ehr,objekt.opis,objekt.loc,0,objekt.priority,d,d]);
-    console.log(data +"lalala");
+    var stmt = "INSERT INTO naloge (usluzbenec_id,imeOpravila,loc_id,done,prioriteta,createDatum,opisNaloge,updateDatum,ehr_id) VALUES (?,?,?,?,?,?,?,?,?)";
+    
+    var minute = Math.floor((Math.random() * 60) + 5);
+    var datum = new Date();
+    var d = new Date(datum.getTime() + minute*60000);
+
+    pb.run(stmt,[null,objekt.ime,objekt.loc,0,objekt.priority,d,objekt.opis,d,objekt.ehr]);
+    console.log("lalala");
     pb.all("SELECT * FROM naloge", function(napaka, vrstice){
       io.sockets.emit('opravila',vrstice);
     });
