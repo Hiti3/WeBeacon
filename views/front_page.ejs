@@ -36,15 +36,34 @@
             </div>
 
 
-              <div class="list-group">
+              <div class="list-group" id="list-todo">
               <% for(var i=0; i<naloge.length; i++) {%>
                 <% if (naloge[i].usluzbenec_id == null) { %>
                   <a href="#" class="list-group-item"><%=naloge[i].imeOpravila %>
+                  <button  onclick="panelMenu(<%=naloge[i].task_id%>)">Task info</button>
                   <button  onclick="prikaziPodatke(<%=naloge[i].task_id%>,<%=naloge[i].ehr_id%>,null,1)">Pacient info</button>
                   <button class="todoItem" id="todo<%=naloge[i].task_id%>"><div class="glyphicon glyphicon-ok-circle logo-large" id="check_glyphon"></div></button></a>
                   
                   <div class="panel panel-default" id="show<%=naloge[i].task_id%>" style="display:none">
                       <div class="panel-body" id="panel<%=naloge[i].task_id%>"></div>
+                  </div>
+                  <div class="panel panel-default" id="taskTo<%=naloge[i].task_id%>" style="display:none">
+                      <div class="panel-body" id="taskT<%=naloge[i].task_id%>">
+                        <div class="row">
+                        <div class="col-sm-4">
+                          <span class="label label-info">Description</span>
+                          <input type="text" class="form-control input-mini" value="<%=naloge[i].imeOpravila%>"readonly>
+                        </div> 
+                        <div class="col-sm-4">
+                          <span class="label label-info">Location</span>
+                          <input type="text"class="form-control input-mini" value="<%=naloge[i].loc_id%>" readonly>
+                        </div> 
+                        <div class="col-sm-4">
+                          <span class="label label-info">Until</span>
+                          <input type="text" class="form-control input-mini" value="<%=naloge[i].createDatum%>" readonly>
+                          </div>
+                        </div>
+                      </div>
                   </div>
                  
                 <% } %>
@@ -75,11 +94,12 @@
               <div class="panel-heading">My tasks</div>
               <div class="panel-body">
                 
-                 <div class="list-group">
+                 <div class="list-group" id="list-progress1">
                     <% for(var i=0; i<naloge.length; i++) {%>
                       <% if (!naloge[i].done && naloge[i].usluzbenec_id != null) { %>
                         <% if (naloge[i].usluzbenec_id == usluzbenci.id) { %>
                           <a href="#" class="list-group-item"><%=naloge[i].imeOpravila%>
+                          <button  onclick="panelProgress(<%=naloge[i].task_id%>)">Task info</button>
                           <button  onclick="prikaziPodatke(<%=naloge[i].task_id%>,<%=naloge[i].ehr_id%>,<%=naloge[i].usluzbenec_id%>,null)">Pacient info</button>
                           <button class="doneItem" id="done<%=naloge[i].task_id%>"><div class="glyphicon glyphicon-ok-circle logo-large" id="done_glyphon"></div></button>
                           <button class="progItem" id="prog<%=naloge[i].task_id%>"><div class="glyphicon glyphicon-ban-circle logo-large" id="ban_glyphon"></div></button></a>
@@ -87,6 +107,24 @@
                           <div class="panel panel-default" id="see<%=naloge[i].task_id%>" style="display:none">
                                <div class="panel-body" id="panela<%=naloge[i].task_id%>"></div>
                           </div>
+                          <div class="panel panel-default" id="progressTo<%=naloge[i].task_id%>" style="display:none">
+                          <div class="panel-body" id="progressT<%=naloge[i].task_id%>">
+                            <div class="row">
+                            <div class="col-sm-4">
+                              <span class="label label-info">Description</span>
+                              <input type="text" class="form-control input-mini" value="<%=naloge[i].imeOpravila%>"readonly>
+                            </div> 
+                            <div class="col-sm-4">
+                              <span class="label label-info">Location</span>
+                              <input type="text"class="form-control input-mini" value="<%=naloge[i].loc_id%>" readonly>
+                            </div> 
+                            <div class="col-sm-4">
+                              <span class="label label-info">Until</span>
+                              <input type="text" class="form-control input-mini" value="<%=naloge[i].createDatum%>" readonly>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                          
                         <% } %>
                       <% } %>
@@ -100,14 +138,31 @@
               <div class="panel-heading">Other tasks</div>
               <div class="panel-body">
                 
-                 <div class="list-group">
+                 <div class="list-group" id="list-progress2">
                     <% for(var i=0; i<naloge.length; i++) {%>
                       <% if (!naloge[i].done && naloge[i].usluzbenec_id != null) { %>
                         <% if (naloge[i].usluzbenec_id != usluzbenci.id) { %>
-                          <a href="#" class="list-group-item"><%= naloge[i].imeOpravila %></a>
-            
+                          <a href="#" class="list-group-item"><%= naloge[i].imeOpravila %><button  onclick="panelProgress(<%=naloge[i].task_id%>)">Task info</button><button  onclick="prikaziPodatke(<%=naloge[i].task_id%>,<%=naloge[i].ehr_id%>,<%=naloge[i].usluzbenec_id%>,null)">Pacient info</button></a>
                           <div class="panel panel-default" id="see<%=naloge[i].task_id%>" style="display:none">
                                <div class="panel-body" id="panela<%=naloge[i].task_id%>"></div>
+                          </div>
+                          <div class="panel panel-default" id="progressTo<%=naloge[i].task_id%>" style="display:none">
+                            <div class="panel-body" id="progressT<%=naloge[i].task_id%>">
+                              <div class="row">
+                              <div class="col-sm-4">
+                                <span class="label label-info">Description</span>
+                                <input type="text" class="form-control input-mini" value="<%=naloge[i].imeOpravila %>"readonly>
+                              </div> 
+                              <div class="col-sm-4">
+                                <span class="label label-info">Location</span>
+                                <input type="text"class="form-control input-mini" value="<%=naloge[i].loc_id %>" readonly>
+                              </div> 
+                              <div class="col-sm-4">
+                                <span class="label label-info">Until</span>
+                                <input type="text" class="form-control input-mini" value="<%=naloge[i].createDatum %>" readonly>
+                                </div>
+                              </div>
+                            </div>
                           </div>
                          
                         <% } %>
@@ -135,15 +190,34 @@
               </div>
             </div>
 
-            <div class="list-group">
+            <div class="list-group" id="list-done">
               <% for(var i=0; i<naloge.length; i++) {%>
                 <% if (naloge[i].done) { %>
                   <a href="#" class="list-group-item"><%= naloge[i].imeOpravila %>
+                  <button  onclick="panelDone(<%=naloge[i].task_id%>)">Task info</button>
                   <button  onclick="prikaziPodatke(<%=naloge[i].task_id%>,<%=naloge[i].ehr_id%>,<%=naloge[i].usluzbenec_id%>,1)">Pacient info</button></a>
                   
                     <div class="panel panel-default" id="vidi<%=naloge[i].task_id%>" style="display:none">
                          <div class="panel-body" id="tabla<%=naloge[i].task_id%>"></div>
                     </div>
+                    <div class="panel panel-default" id="doneTo<%=naloge[i].task_id%>" style="display:none">
+                            <div class="panel-body" id="doneT<%=naloge[i].task_id%>">
+                              <div class="row">
+                              <div class="col-sm-4">
+                                <span class="label label-info">Description</span>
+                                <input type="text" class="form-control input-mini" value="<%=naloge[i].imeOpravila%>" readonly>
+                              </div> 
+                              <div class="col-sm-4">
+                                <span class="label label-info">Location</span>
+                                <input type="text"class="form-control input-mini" value="<%=naloge[i].loc_id%>" readonly>
+                              </div> 
+                              <div class="col-sm-4">
+                                <span class="label label-info">Until</span>
+                                <input type="text" class="form-control input-mini" value="<%=naloge[i].createDatum%>" readonly>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
 
                 <% } %>
               <% } %>
