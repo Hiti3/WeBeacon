@@ -16,6 +16,7 @@
 
 <body>
   <p id="usluzbenec" style="display: none"><%=usluzbenci.id%></p>
+  <p id="usluzbenecLoc" style="display: none"><%=usluzbenci.loc_id%></p>
     <div>
         <div class="tab-content">
           <div id="home" class="tab-pane fade in active">
@@ -25,16 +26,16 @@
                   <div class="glyphicon glyphicon-user logo-large"></div></div>
                 <div class="col-xs-1 col-sm-1 col-md-1">
                   <p><%= usluzbenci.ime + " " + usluzbenci.primek %></p></div>
-                  
+
                   <div class="col-xs-8 col-sm-8 col-md-8"></div>
-                  
+
                   <div class="col-xs-1 col-sm-1 col-md-1">
                     <button type="button" class="btn btn-default" id="createTask"><div class="glyphicon glyphicon-plus logo-large" id="plus_glyphon"></div></button></div>
 
                   <div class="col-xs-1 col-sm-1 col-md-1">
                     <form class="form-inline"  action="/odjavi" method="post">
                     <button  type="submit" name="/odjava" class="btn btn-default" id="logout"><div class="glyphicon glyphicon-off logo-large" id="logout_glyphon"></div></button></form></div>
-                  
+
               </div>
             </div>
 
@@ -63,9 +64,9 @@
                   <div class="glyphicon glyphicon-user logo-large"></div></div>
                 <div class="col-xs-1 col-sm-1 col-md-1">
                   <p><%= usluzbenci.ime + " " + usluzbenci.primek %></p></div>
-                  
+
                   <div class="col-xs-8 col-sm-8 col-md-8"></div>
-                  
+
                   <div class="col-xs-1 col-sm-1 col-md-1">
                     <button type="button" class="btn btn-default" id="createTask"><div class="glyphicon glyphicon-plus logo-large" id="plus_glyphon"></div></button></div>
                   <div class="col-xs-1 col-sm-1 col-md-1">
@@ -98,9 +99,9 @@
                   <div class="glyphicon glyphicon-user logo-large"></div></div>
                 <div class="col-xs-1 col-sm-1 col-md-1">
                   <p><%= usluzbenci.ime + " " + usluzbenci.primek %></p></div>
-                  
+
                   <div class="col-xs-8 col-sm-8 col-md-8"></div>
-                  
+
                   <div class="col-xs-1 col-sm-1 col-md-1">
                     <button type="button" class="btn btn-default" id="createTask"><div class="glyphicon glyphicon-plus logo-large" id="plus_glyphon"></div></button></div>
                   <div class="col-xs-1 col-sm-1 col-md-1">
