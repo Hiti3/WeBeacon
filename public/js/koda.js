@@ -217,8 +217,8 @@ socket.on('opravila', function(opravila) {
         izpis += '<a href="#" class="list-group-item">'+opravila[i].imeOpravila+'\
         <button class="patientInfoBtn" onclick="prikaziPodatke('+opravila[i].task_id+','+opravila[i].ehr_id+','+opravila[i].usluzbenec_id+',1)"><div class="glyphicon glyphicon-glyphicon glyphicon-info-sign logo-large" id="patientInfo"></div></button></a>\
 \
-        <div class="panel panel-default" id="progressTo'+opravila[i].task_id+'" style="display:none">\
-        <div class="panel-body" id="progressT'+opravila[i].task_id+'">\
+        <div class="panel panel-default" id="doneTo'+opravila[i].task_id+'" style="display:none">\
+        <div class="panel-body" id="doneT'+opravila[i].task_id+'">\
           <div class="row">\
           <div class="col-sm-4">\
             <span class="label label-info">Description</span>\
@@ -235,8 +235,8 @@ socket.on('opravila', function(opravila) {
           </div>\
         </div>\
       </div>\
-      <div class="panel panel-default" id="see'+opravila[i].task_id+'" style="display:none">\
-        <div class="panel-body" id="panela'+opravila[i].task_id+'"></div>\
+      <div class="panel panel-default" id="vidi'+opravila[i].task_id+'" style="display:none">\
+        <div class="panel-body" id="tabla'+opravila[i].task_id+'"></div>\
       </div>';
 
       }
