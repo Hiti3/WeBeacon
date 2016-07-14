@@ -3,7 +3,7 @@ var socket = io();
 var lokacija = [[0,10,2], [10,0,12], [2,12,0]];
 var naloge;
 
-$('.todoItem').click(function() {
+$('.list-group').on('click', '.todoItem',function() {
   var todoID = $(this).attr("id").replace("todo", "");
   var usluzbenec_id = $("#usluzbenec").text();
   socket.emit('prevzemiOpravilo', usluzbenec_id, todoID);
@@ -72,7 +72,6 @@ socket.on('opravila', function(opravila) {
   }
 
   var swapped;
-  console.log(toDo.length);
   do {
     swapped = false;
     for (var i=0; i < stevecTD-1; i++) {
@@ -85,4 +84,34 @@ socket.on('opravila', function(opravila) {
     }
   } while (swapped);
   console.log(toDo);
+  $('#list-todo').empty();
+  var izpis = '';
+  for(var i=0; i<stevecTD; i++) {
+    izpis += '<a href="#" class="list-group-item">'+toDo[i].imeOpravila+'\
+    <button  onclick="prikaziPodatke('+toDo[i].task_id+','+toDo[i].ehr_id+','+null+',1)">Pacient info</button>\
+    <button class="todoItem" id="todo'+toDo[i].task_id+'"><div class="glyphicon glyphicon-ok-circle logo-large" id="check_glyphon"></div></button></a>\
+\
+    <div class="panel panel-default" id="taskTo'+toDo[i].task_id+'" style="display:none">\
+        <div class="panel-body" id="taskT'+toDo[i].task_id+'">\
+          <div class="row">\
+          <div class="col-sm-4">\
+            <span class="label label-info">Description</span>\
+            <input type="text" class="form-control input-mini" value="'+toDo[i].imeOpravila+'"readonly>\
+          </div>\
+          <div class="col-sm-4">\
+            <span class="label label-info">Location</span>\
+            <input type="text"class="form-control input-mini" value="'+toDo[i].loc_id+'" readonly>\
+          </div>\
+          <div class="col-sm-4">\
+            <span class="label label-info">Until</span>\
+            <input type="text" class="form-control input-mini" value="'+toDo[i].until+'" readonly>\
+            </div>\
+          </div>\
+        </div>\
+    </div>\
+    <div class="panel panel-default" id="show'+toDo[i].task_id+'" style="display:none">\
+      <div class="panel-body" id="panel'+toDo[i].task_id+'"></div>\
+      </div>';
+  }
+  $('#list-todo').append(izpis);
 });
