@@ -108,6 +108,7 @@
     padding: 5px 7px 5px 7px;
     color: #fff;
     background-color: #527A87;
+    border-radius: 20%;
 }
 
 #logout_glyphon {
@@ -119,11 +120,12 @@
 
 #createTask {
     position: relative;
-    margin-left: -100px;
+    margin-left: -90px;
     margin-top: -20px;
     padding: 5px 7px 5px 7px;
     color: #fff;
     background-color: #527A87;
+    border-radius: 20%;
 }
 
 #plus_glyphon {
@@ -133,8 +135,72 @@
     top: 0;
 }
 
+#check_glyphon {
+    position: relative;
+    font-size: 28px !important;
+    left: -2.3px;
+    top: 2.7px;
+    color: white;
+}
+
+.todoItem {
+    position: relative;
+    /*margin-top: -3px;*/
+    float: right;
+    border-radius: 100%;
+    border: 0px;
+    background-color: #7EC965;
+    margin-top: -4px;
+    margin-right: 0.5vw;
+    width: 35px;
+}
+
+#ban_glyphon {
+    position: relative;
+    font-size: 28px !important;
+    left: -2.3px;
+    top: 2.7px;
+    color: white;
+}
+
+.progItem {
+    position: relative;
+    /*margin-top: -3px;*/
+    float: right;
+    border-radius: 100%;
+    border: 0px;
+    background-color: #C9A842;
+    margin-top: -4px;
+    margin-right: 1.5vw;
+    width: 35px;
+}
+
+#done_glyphon {
+    position: relative;
+    font-size: 28px !important;
+    left: -2.3px;
+    top: 2.7px;
+    color: white; 
+}
+
+.doneItem {
+    position: relative;
+    /*margin-top: -3px;*/
+    float: right;
+    border-radius: 100%;
+    border: 0px;
+    background-color: #7EC965;
+    margin-top: -4px;
+    margin-right: 0.5vw;
+    width: 35px;
+}
+
 .label {
   background-color: #5C9FB5;
+}
+
+#myTasks {
+    
 }
 
 /*

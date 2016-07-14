@@ -1,18 +1,43 @@
+#signIn {
+    width:50%;
+    margin-top: 5px;
+    margin-bottom: 40px;
+    background-color: #38839C;
+}
+
+#signForm {
+    height: 100vh;
+    margin-top: 10vh;
+}
+
+#sporocilo {
+    padding-bottom: -10px;
+}
+
+#naslov {
+    margin-top: 10px;
+    margin-bottom: 70px;
+}
+
+
+.form-control {
+    margin-bottom: 5px;
+}
+
 .jumbotron { 
     background-color:#5C9FB5; 
     color: #ffffff;
 }
 .btn {
-    background-color: #5C9FB5;
     border: 1px solid #ffffff ;
 }
 
 .logo {
     font-size: 200px;
-    color: #5C9FB5;
+    color: #337ab7;
 }
 .logo-small {
-      color: #5C9FB5;
+      color: #337ab7;
       font-size: 50px;
 }
 .container-fluid {

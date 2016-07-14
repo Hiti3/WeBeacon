@@ -36,6 +36,52 @@ function getSessionId() {
     return response.responseJSON.sessionId;
 }
 
+function panelMenu(id){
+    console.log("jaaa");
+    var prikazi = "#taskTo"+id;
+    var dodaj = "#taskT"+id;
+
+
+    var kaksno = $( ''+prikazi+'').css("display");
+
+    if(kaksno == "block"){
+        $(''+prikazi+'').attr('style','display: none');
+    }
+    else{
+        $(''+prikazi+'').attr('style','display: block');
+    }
+}
+function panelProgress(id){
+    console.log("jaaa");
+    var prikazi = "#progressTo"+id;
+    var dodaj = "#progressT"+id;
+
+
+    var kaksno = $( ''+prikazi+'').css("display");
+
+    if(kaksno == "block"){
+        $(''+prikazi+'').attr('style','display: none');
+    }
+    else{
+        $(''+prikazi+'').attr('style','display: block');
+    }
+}
+function panelDone(id){
+    console.log("jaaa");
+    var prikazi = "#doneTo"+id;
+    var dodaj = "#doneT"+id;
+
+
+    var kaksno = $( ''+prikazi+'').css("display");
+
+    if(kaksno == "block"){
+        $(''+prikazi+'').attr('style','display: none');
+    }
+    else{
+        $(''+prikazi+'').attr('style','display: block');
+    }
+}
+
 function prikaziPodatke(id,ehrId,usluzbenec,done){
     ehrId = "53db43f5-f709-4202-87d8-289e6223bc35";
     if(usluzbenec == null){ 

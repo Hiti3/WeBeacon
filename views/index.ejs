@@ -7,22 +7,22 @@
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
   <link href="css/index.css" rel="stylesheet">
 </head>
+
 <body>
 <div class="jumbotron text-center">
-  <h1>WeBeacon</h1>
-  <p>Sing in to WeBeacon</p>
-  <div class="container">
-  <form class="form-inline" role="form" action="/prijavi" method="post">
-    <div class="form-group">
-      <input type="email" name ="email" class="form-control" size="30" id="naslovE" placeholder="Email Address">
+  <h1 id="naslov">WeBeacon</h1>
+  <div class="row">
+    <div class="col-xs-1 col-sm-1 col-md-1"></div>
+    <div class="col-xs-10 col-sm-10 col-md-10" id="signForm">
+      <p>Sign in to WeBeacon</p>
+      <form class="form-inline"  action="/prijavi" method="post">
+        <input type="email" name ="email" class="form-control" size="30" placeholder="Email Address">
+        <input type="password" name ="pwd" class="form-control" size="30" placeholder="Password">
+        <button name="/potrdi" type="submit" class="btn btn-primary" id="signIn">Sign in</button>
+      </form></div>
+      <div class="col-xs-1 col-sm-1 col-md-1"></div>
     </div>
-    <div class="form-group">
-      <input type="password" name ="pwd" class="form-control" size="30" id="mojeGeslo" placeholder="Password">
-    </div>
-    <button name="/potrdi" type="submit" class="btn btn-primary">Sign in</button>
-  </form>
-  <p> <%= sporocilo %> </p>
-  </div>
+  <p id="sporocilo"> <%= sporocilo %> </p>
 </div>
 
 <div class="container-fluid text-center">
