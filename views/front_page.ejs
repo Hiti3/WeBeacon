@@ -44,7 +44,7 @@
                 <a href="#" class="list-group-item">
                 <i class="fa fa-exclamation" aria-hidden="true"></i>
                 <%=todo[i].imeOpravila %>
-                <button class="patientInfoBtn" onclick="prikaziPodatke(<%=todo[i].task_id%>,<%=todo[i].ehr_id%>,null,1)"><div class="glyphicon glyphicon-glyphicon glyphicon-info-sign logo-large" id="patientInfo"></div></button>
+                <button class="patientInfoBtn" onclick="prikaziPodatke(<%=todo[i].task_id%>,'<%=todo[i].ehr_id%>',null,1)"><div class="glyphicon glyphicon-glyphicon glyphicon-info-sign logo-large" id="patientInfo"></div></button>
                 <button class="todoItem" id="todo<%=todo[i].task_id%>"><div class="glyphicon glyphicon-ok-circle logo-large" id="check_glyphon"></div></button></a>
 
                   <div class="panel panel-default" id="taskTo<%=todo[i].task_id%>" style="display:none">
@@ -102,7 +102,7 @@
                       <% if (!naloge[i].done && naloge[i].usluzbenec_id != null) { %>
                         <% if (naloge[i].usluzbenec_id == usluzbenci.id) { %>
                           <a href="#" class="list-group-item"><%=naloge[i].imeOpravila%>
-                          <button class="patientInfoBtn" onclick="prikaziPodatke(<%=naloge[i].task_id%>,<%=naloge[i].ehr_id%>,<%=naloge[i].usluzbenec_id%>,null)"><div class="glyphicon glyphicon-glyphicon glyphicon-info-sign logo-large" id="patientInfo"></div></button>
+                          <button class="patientInfoBtn" onclick="prikaziPodatke(<%=naloge[i].task_id%>,'<%=naloge[i].ehr_id%>',<%=naloge[i].usluzbenec_id%>,null)"><div class="glyphicon glyphicon-glyphicon glyphicon-info-sign logo-large" id="patientInfo"></div></button>
                           <button class="doneItem" id="done<%=naloge[i].task_id%>"><i class="glyphicon glyphicon-ok-circle logo-large" id="done_glyphon"></i></button>
                           <button class="progItem" id="prog<%=naloge[i].task_id%>"><i class="glyphicon glyphicon-ban-circle logo-large" id="ban_glyphon"></i></button></a>
 
@@ -196,7 +196,7 @@
               <% for(var i=0; i<naloge.length; i++) {%>
                 <% if (naloge[i].done) { %>
                   <a href="#" class="list-group-item"><%= naloge[i].imeOpravila %>
-                  <button class="patientInfoBtn" onclick="prikaziPodatke(<%=naloge[i].task_id%>,<%=naloge[i].ehr_id%>,<%=naloge[i].usluzbenec_id%>,1)"><div class="glyphicon glyphicon-glyphicon glyphicon-info-sign logo-large" id="patientInfo"></div></button></a>
+                  <button class="patientInfoBtn" onclick="prikaziPodatke(<%=naloge[i].task_id%>,'<%=naloge[i].ehr_id%>',<%=naloge[i].usluzbenec_id%>,1)"><div class="glyphicon glyphicon-glyphicon glyphicon-info-sign logo-large" id="patientInfo"></div></button></a>
 
                     <div class="panel panel-default" id="doneTo<%=naloge[i].task_id%>" style="display:none">
                             <div class="panel-body" id="doneT<%=naloge[i].task_id%>">
