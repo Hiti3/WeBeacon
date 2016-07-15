@@ -23,7 +23,6 @@ $('#posljiVsem').click(function(){
     else{
       var usluzbenec_id = $("#usluzbenec").text();
       var kreiranObjekt = {ime:imeO, opis:opisO, loc:lokacijaO, priority: prioritetaO, ehr:ehrIdO, minute: cas};
-      console.log(kreiranObjekt);
       socket.emit('kreirajOpravilo', usluzbenec_id, kreiranObjekt);
       $('#uspesnoAliNeuspesno').modal('show');
       $('#sporociloTaska').text("Your task is created!");
@@ -90,10 +89,6 @@ socket.on('opravila', function(opravila) {
     var until = new Date(parseInt(toDo[i].createDatum));
     var razlika = until - datum;
     razlika = Math.floor(razlika / 60000); // v minute
-    // var absolutna = razlika;
-    // if (absolutna<0) {
-    //   absolutna = absolutna * (-1);
-    // }
     if (razlika<=-10) {
       toDo[i].pomembnost = 10000;
       toDo[i].createDatum = 0;
@@ -130,7 +125,6 @@ socket.on('opravila', function(opravila) {
       }
     }
   } while (swapped);
-  // console.log(toDo);
   seznam = toDo;
   $('#list-todo').empty();
   var izpis = '';
@@ -241,7 +235,6 @@ socket.on('opravila', function(opravila) {
   $('#list-done').empty();
   var izpis = '';
   for(var i in opravila) {
-    console.log(opravila[i].ehr_id);
     if (opravila[i].done) {
       var done_ehrId = "'"+ opravila[i].ehr_id + "'";
         izpis += '<a href="#" class="list-group-item">'+opravila[i].imeOpravila+'\
@@ -273,10 +266,6 @@ socket.on('opravila', function(opravila) {
   }
   $('#list-done').append(izpis);
 });
-
-// setInterval(function(){
-//   socket.emit('refresh');
-// }, 60000);
 
 function f(){
   socket.emit('refresh');

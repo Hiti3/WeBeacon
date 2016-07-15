@@ -58,7 +58,6 @@ app.get('/tasks', function(zahteva, odgovor) {
         odgovor.redirect('/index');
       }
       else{
-        console.log(opravila);
         var toDo = {};
         var stevecTD = 0
         var datum = new Date();
@@ -174,7 +173,6 @@ io.on('connection', (socket) => {
     var d = new Date(datum.getTime() + objekt.minute*60000);
 
     pb.run(stmt,[null,objekt.ime,objekt.loc,0,objekt.priority,d,objekt.opis,d,objekt.ehr]);
-    console.log("lalala");
     pb.all("SELECT * FROM naloge", function(napaka, vrstice){
       io.sockets.emit('opravila',vrstice);
     });
@@ -185,7 +183,6 @@ io.on('connection', (socket) => {
     var d = new Date();
     pb.run(sql03,[data,d,id]);
     pb.all("SELECT * FROM naloge", function(napaka, vrstice){
-      console.log(vrstice);
       io.sockets.emit('opravila',vrstice);
     });
   });
@@ -195,13 +192,11 @@ io.on('connection', (socket) => {
     var d = new Date();
     pb.run(sql03,[null,d,id]);
     pb.all("SELECT * FROM naloge", function(napaka, vrstice){
-      console.log(vrstice);
       io.sockets.emit('opravila', vrstice);
     });
   });
   socket.on('refresh', () => {
     pb.all("SELECT * FROM naloge", function(napaka, vrstice){
-      console.log(vrstice);
       io.sockets.emit('opravila',vrstice);
     });
   })
@@ -212,7 +207,6 @@ io.on('connection', (socket) => {
     d.setDate(d.getDate());
     pb.run(sql03,[1,d,id]);
     pb.all("SELECT * FROM naloge", function(napaka, vrstice){
-      console.log(vrstice);
       io.sockets.emit('opravila',vrstice);
     });
   });

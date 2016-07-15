@@ -2,7 +2,6 @@ var tasks = ["1", "2", "3"];
 
 $(document).ready(function(){
     $("vsebina1").html = vsebina1_html();
-    console.log(22);
 });
 
 function vsebina1_html(tasks) {
