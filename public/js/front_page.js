@@ -25,6 +25,7 @@ $('#createTask').click(function(){
     $('#dodajLokacijo').val("");
     $('#dodajPrioriteto').val("");
     $('#dodajEhr').val("");
+    $('#dodajCas').val("");
 })
 
 var baseUrl = 'https://rest.ehrscape.com/rest/v1';

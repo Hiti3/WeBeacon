@@ -9,18 +9,19 @@ $('#posljiVsem').click(function(){
     var lokacijaO= $('#dodajLokacijo').val();
     var prioritetaO =$('#dodajPrioriteto').val();
     var ehrIdO = $('#dodajEhr').val();
+    var cas = $('#dodajCas').val();
 
     if($('#dodajEhr').val().length === 0){
       ehrIdO ="12345";
     }
 
-    if(imeO == "" || opisO == "" || lokacijaO == "" || prioritetaO == ""){
+    if(imeO == "" || opisO == "" || lokacijaO == "" || prioritetaO == "" || cas ==""){
       $('#uspesnoAliNeuspesno').modal('show');
       $('#sporociloTaska').text("Your task wasn't created!");
     }
     else{
       var usluzbenec_id = $("#usluzbenec").text();
-      var kreiranObjekt = {ime:imeO, opis:opisO, loc:lokacijaO, priority: prioritetaO, ehr:ehrIdO};
+      var kreiranObjekt = {ime:imeO, opis:opisO, loc:lokacijaO, priority: prioritetaO, ehr:ehrIdO, minute: cas};
       console.log(kreiranObjekt);
       socket.emit('kreirajOpravilo', usluzbenec_id, kreiranObjekt);
       $('#uspesnoAliNeuspesno').modal('show');
