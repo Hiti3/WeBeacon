@@ -1,8 +1,13 @@
+#logo {
+    width:50%;
+    height:50%;
+}
+
 #signIn {
     width:50%;
     margin-top: 5px;
     margin-bottom: 40px;
-    background-color: #38839C;
+    background-color: #44879E;
 }
 
 #signForm {
@@ -16,7 +21,7 @@
 
 #naslov {
     margin-top: 10px;
-    margin-bottom: 70px;
+    margin-bottom: 30px;
 }
 
 
@@ -37,13 +42,14 @@
     color: #337ab7;
 }
 .logo-small {
-      color: #337ab7;
+      color: #5C9FB5;
       font-size: 50px;
 }
 .container-fluid {
     padding: 60px 50px;
     
 }
+
 
 @media screen and (max-width: 768px) {
     .col-sm-4 {
