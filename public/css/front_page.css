@@ -163,7 +163,7 @@ a:hover {
     position: relative;
     font-size: 30px !important;
     left: 0;
-    top: 0;
+    top: 2px;
 }
 
 #createTask {
@@ -179,8 +179,8 @@ a:hover {
 #plus_glyphon {
     position: relative;
     font-size: 30px !important;
-    left: 0;
-    top: 0;
+    left: 1px;
+    top: 1px;
 }
 
 #check_glyphon {
