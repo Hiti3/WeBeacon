@@ -3,6 +3,7 @@ var socket = io();
 var lokacija = [[0,10,2], [10,0,12], [2,12,0]];
 var naloge;
 
+
 $('#posljiVsem').click(function(){
     var imeO = $('#dodajIme').val();
     var opisO = $('#dodajOpis').val();
@@ -130,6 +131,7 @@ socket.on('opravila', function(opravila) {
     }
   } while (swapped);
   // console.log(toDo);
+  seznam = toDo;
   $('#list-todo').empty();
   var izpis = '';
   for(var i=0; i<stevecTD; i++) {
@@ -271,3 +273,29 @@ socket.on('opravila', function(opravila) {
   }
   $('#list-done').append(izpis);
 });
+
+// setInterval(function(){
+//   socket.emit('refresh');
+// }, 60000);
+
+function f(){
+  socket.emit('refresh');
+}
+
+function repeatEvery(func, interval) {
+    // Check current time and calculate the delay until next interval
+    var now = new Date,
+        delay = interval - now % interval;
+
+    function start() {
+        // Execute function now...
+        func();
+        // ... and every interval
+        setInterval(func, interval);
+    }
+
+    // Delay execution until it's an even interval
+    setTimeout(start, delay);
+}
+
+repeatEvery(f, 60 * 1000);

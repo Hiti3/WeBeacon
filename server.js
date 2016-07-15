@@ -199,6 +199,12 @@ io.on('connection', (socket) => {
       io.sockets.emit('opravila', vrstice);
     });
   });
+  socket.on('refresh', () => {
+    pb.all("SELECT * FROM naloge", function(napaka, vrstice){
+      console.log(vrstice);
+      io.sockets.emit('opravila',vrstice);
+    });
+  })
 
   socket.on('koncanoOpravilo', (id) => {
     var sql03="UPDATE naloge SET done = ?,updateDatum = ? WHERE task_id = ?";
