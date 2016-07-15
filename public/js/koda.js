@@ -135,7 +135,7 @@ socket.on('opravila', function(opravila) {
       izpis += '<i class="fa fa-exclamation" aria-hidden="true"></i>';
 
     }
-    izpis += ''+toDo[i].imeOpravila+'\
+    izpis += ' '+toDo[i].imeOpravila+'\
     <button class="patientInfoBtn" onclick="prikaziPodatke('+toDo[i].task_id+','+todo_ehrId+',null,1)"><div class="glyphicon glyphicon-glyphicon glyphicon-info-sign logo-large" id="patientInfo"></div></button>\
     <button class="todoItem" id="todo'+toDo[i].task_id+'"><div class="glyphicon glyphicon-ok-circle logo-large" id="check_glyphon"></div></button></a>\
 \
