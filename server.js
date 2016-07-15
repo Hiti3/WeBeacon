@@ -61,14 +61,33 @@ app.get('/tasks', function(zahteva, odgovor) {
         console.log(opravila);
         var toDo = {};
         var stevecTD = 0
+        var datum = new Date();
         for (var i in opravila) {
           if (opravila[i].usluzbenec_id === null ) {
             toDo[stevecTD] = opravila[i];
             toDo[stevecTD].index = stevecTD;
             stevecTD++;
+          } else {
+            var until = new Date(parseInt(opravila[i].createDatum));
+            var razlika = until - datum;
+            razlika = Math.floor(razlika / 60000); // v minute
+            if(opravila[i].createDatum === 0) {
+              razlika = "Urgent";
+            } else if (razlika > 60) {
+              var kolkur = Math.floor(razlika/60);
+              var kolkmin = razlika - (kolkur * 60);
+              razlika = kolkur + "h" + kolkmin + "min";
+            } else if (razlika < -60) {
+              razlika = razlika * (-1);
+              var kolkur = Math.floor(razlika/60);
+              var kolkmin = razlika - (kolkur * 60);
+              razlika = "-"+kolkur + "h" + kolkmin + "min";
+            } else {
+              razlika = razlika + "min";
+            }
+            opravila[i].until = razlika;
           }
         }
-        var datum = new Date();
         datum = datum.getTime();
         for (var i in toDo) {
           if (toDo[i].prioriteta === 1) {
@@ -87,6 +106,7 @@ app.get('/tasks', function(zahteva, odgovor) {
           if (razlika<=-10) {
             toDo[i].pomembnost = 10000;
             toDo[i].createDatum = 0;
+            toDo[i].prioriteta = 1;
           } else if (-10<razlika && razlika<=10) {
             toDo[i].pomembnost += 3000;
           } else if (10<razlika && razlika<=60) {
@@ -149,7 +169,7 @@ io.on('connection', (socket) => {
 
   socket.on('kreirajOpravilo',(data,objekt) => {
     var stmt = "INSERT INTO naloge (usluzbenec_id,imeOpravila,loc_id,done,prioriteta,createDatum,opisNaloge,updateDatum,ehr_id) VALUES (?,?,?,?,?,?,?,?,?)";
-    
+
     var datum = new Date();
     var d = new Date(datum.getTime() + objekt.minute*60000);
 

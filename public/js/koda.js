@@ -50,15 +50,34 @@ socket.on('opravila', function(opravila) {
   var usluzbenecLoc = $("#usluzbenecLoc").text();
   var toDo = {};
   var stevecTD = 0
+  var datum = new Date();
   naloge = opravila;
   for (var i in opravila) {
     if (opravila[i].usluzbenec_id === null ) {
       toDo[stevecTD] = opravila[i];
       toDo[stevecTD].index = stevecTD;
       stevecTD++;
+    } else {
+      var until = new Date(parseInt(opravila[i].createDatum));
+      var razlika = until - datum;
+      razlika = Math.floor(razlika / 60000); // v minute
+      if(opravila[i].createDatum === 0) {
+        razlika = "Urgent";
+      } else if (razlika > 60) {
+        var kolkur = Math.floor(razlika/60);
+        var kolkmin = razlika - (kolkur * 60);
+        razlika = kolkur + "h" + kolkmin + "min";
+      } else if (razlika < -60) {
+        razlika = razlika * (-1);
+        var kolkur = Math.floor(razlika/60);
+        var kolkmin = razlika - (kolkur * 60);
+        razlika = "-"+kolkur + "h" + kolkmin + "min";
+      } else {
+        razlika = razlika + "min";
+      }
+      opravila[i].until = razlika;
     }
   }
-  var datum = new Date();
   datum = datum.getTime();
   for (var i in toDo) {
     if (toDo[i].prioriteta === 1) {
@@ -77,6 +96,7 @@ socket.on('opravila', function(opravila) {
     if (razlika<=-10) {
       toDo[i].pomembnost = 10000;
       toDo[i].createDatum = 0;
+      toDo[i].prioriteta = 1;
     } else if (-10<razlika && razlika<=10) {
       toDo[i].pomembnost += 3000;
     } else if (10<razlika && razlika<=60) {
@@ -114,9 +134,12 @@ socket.on('opravila', function(opravila) {
   var izpis = '';
   for(var i=0; i<stevecTD; i++) {
     var todo_ehrId = "'"+ toDo[i].ehr_id + "'";
-    izpis += '<a href="#" class="list-group-item">\
-    <i class="fa fa-exclamation" aria-hidden="true"></i>\
-    '+toDo[i].imeOpravila+'\
+    izpis += '<a href="#" class="list-group-item">';
+    if (toDo[i].prioriteta === 1) {
+      izpis += '<i class="fa fa-exclamation" aria-hidden="true"></i>';
+
+    }
+    izpis += ''+toDo[i].imeOpravila+'\
     <button class="patientInfoBtn" onclick="prikaziPodatke('+toDo[i].task_id+','+todo_ehrId+',null,1)"><div class="glyphicon glyphicon-glyphicon glyphicon-info-sign logo-large" id="patientInfo"></div></button>\
     <button class="todoItem" id="todo'+toDo[i].task_id+'"><div class="glyphicon glyphicon-ok-circle logo-large" id="check_glyphon"></div></button></a>\
 \
@@ -168,7 +191,7 @@ socket.on('opravila', function(opravila) {
           </div>\
           <div class="col-sm-4">\
             <span class="label label-info">Until</span>\
-            <input type="text" class="form-control input-mini" value="'+opravila[i].createDatum+'" readonly>\
+            <input type="text" class="form-control input-mini" value="'+opravila[i].until+'" readonly>\
             </div>\
           </div>\
         </div>\
@@ -200,7 +223,7 @@ socket.on('opravila', function(opravila) {
           </div>\
           <div class="col-sm-4">\
             <span class="label label-info">Until</span>\
-            <input type="text" class="form-control input-mini" value="'+opravila[i].createDatum+'" readonly>\
+            <input type="text" class="form-control input-mini" value="'+opravila[i].until+'" readonly>\
             </div>\
           </div>\
         </div>\
@@ -235,7 +258,7 @@ socket.on('opravila', function(opravila) {
           </div>\
           <div class="col-sm-4">\
             <span class="label label-info">Until</span>\
-            <input type="text" class="form-control input-mini" value="'+opravila[i].createDatum+'" readonly>\
+            <input type="text" class="form-control input-mini" value="'+opravila[i].until+'" readonly>\
             </div>\
           </div>\
         </div>\

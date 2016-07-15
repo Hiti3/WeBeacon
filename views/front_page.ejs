@@ -42,7 +42,9 @@
               <div class="list-group" id="list-todo">
               <% for(var i in todo) {%>
                 <a href="#" class="list-group-item">
-                <i class="fa fa-exclamation" aria-hidden="true"></i>
+                  <% if (todo[i].prioriteta === 1) {%>
+                    <i class="fa fa-exclamation" aria-hidden="true"></i>
+                  <%}%>
                 <%=todo[i].imeOpravila %>
                 <button class="patientInfoBtn" onclick="prikaziPodatke(<%=todo[i].task_id%>,'<%=todo[i].ehr_id%>',null,1)"><div class="glyphicon glyphicon-glyphicon glyphicon-info-sign logo-large" id="patientInfo"></div></button>
                 <button class="todoItem" id="todo<%=todo[i].task_id%>"><div class="glyphicon glyphicon-ok-circle logo-large" id="check_glyphon"></div></button></a>
@@ -119,7 +121,7 @@
                             </div>
                             <div class="col-sm-4">
                               <span class="label label-info">Until</span>
-                              <input type="text" class="form-control input-mini" value="<%=naloge[i].createDatum%>" readonly>
+                              <input type="text" class="form-control input-mini" value="<%=naloge[i].until%>" readonly>
                               </div>
                             </div>
                           </div>
@@ -158,7 +160,7 @@
                               </div>
                               <div class="col-sm-4">
                                 <span class="label label-info">Until</span>
-                                <input type="text" class="form-control input-mini" value="<%=naloge[i].createDatum %>" readonly>
+                                <input type="text" class="form-control input-mini" value="<%=naloge[i].until %>" readonly>
                                 </div>
                               </div>
                             </div>
@@ -211,7 +213,7 @@
                               </div>
                               <div class="col-sm-4">
                                 <span class="label label-info">Until</span>
-                                <input type="text" class="form-control input-mini" value="<%=naloge[i].createDatum%>" readonly>
+                                <input type="text" class="form-control input-mini" value="<%=naloge[i].until%>" readonly>
                                 </div>
                               </div>
                             </div>
@@ -246,7 +248,11 @@
             <div class="modal-body">
                   <span class="label label-info">Task name</span><input id="dodajIme" type="text" class="form-control input-mini" placeholder="Task name">
                   <span class="label label-info">Task description</span><input id="dodajOpis" type="text" class="form-control input-mini" placeholder="Task description">
-                  <span class="label label-info">Location</span><input id="dodajLokacijo" type="text" class="form-control input-mini" placeholder="Task location">
+                  <span class="label label-info">Location</span><select id="dodajLokacijo" type="text" class="form-control input-mini" placeholder="Task location">
+                    <option>0</option>
+                    <option>1</option>
+                    <option>2</option>
+                  </select>
                   <span class="label label-info">Until</span><input id="dodajCas" type="text" class="form-control input-mini" placeholder="Number of minutes">
                   <span class="label label-info">Task priority</span><input id="dodajPrioriteto" type="text" class="form-control input-mini" placeholder="Task priority">
                   <span class="label label-info">Pacient ID</span><input id="dodajEhr" type="text" class="form-control input-mini" placeholder="Pacient ID">
@@ -256,9 +262,9 @@
             </div>
           </div>
         </div>
-      </div> 
+      </div>
   </div>
-  
+
   <div class="container" >
       <div class="modal fade" id="uspesnoAliNeuspesno" role="dialog">
         <div class="modal-dialog">
