@@ -1,11 +1,11 @@
 #logo {
-    width:50%;
-    height:50%;
+    width:200px;
 }
 
 #signIn {
     width:50%;
     margin-top: 5px;
+    text-align:center;
     margin-bottom: 40px;
     background-color: #44879E;
 }
