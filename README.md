@@ -6,6 +6,6 @@ App which prioritises who needs to do what, where and when across all aspects of
 
 ![4](slika4.jpeg)
 
-![2](slika2.png)
+![2](slika2.jpeg)
 
-![1](slika1.png)
+![1](slika1.jpeg)
